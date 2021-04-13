@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * WSN
+ * @author Night King
+ *
+ */
 public class ParkingSpaceAllotment {
 
 	class ParkTime {

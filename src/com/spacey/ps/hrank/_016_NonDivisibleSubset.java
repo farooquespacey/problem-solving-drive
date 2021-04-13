@@ -23,28 +23,60 @@ public class _016_NonDivisibleSubset {
 		 */
 
 		/*
-		 * Look for solution here : https://github.com/naskio/Hackerrank-Non-Divisible-Subset/blob/master/Solution.java
+		 * Look for solution here or below: https://github.com/naskio/Hackerrank-Non-Divisible-Subset/blob/master/Solution.java
 		 */
-		public static int nonDivisibleSubset(int k, List<Integer> s) {
+		public static int nonDivisibleSubsetMine(int k, List<Integer> s) {
 			// Write your code here
 			int max = 0;
 			List<Integer> maxSubset = new ArrayList<>();
 			for (int i = 0; i < s.size(); i++) {
 				int curr = s.get(i);
-				int nextIdx = i + 1;
+				int otherIdx = 0;
 				maxSubset.add(curr);
-				while (nextIdx < s.size()) {
-					int next = s.get(nextIdx);
+				while (otherIdx < s.size()) {
+					if(i == otherIdx)
+						continue;
+					int next = s.get(otherIdx);
 					boolean skipAdd = maxSubset.stream().anyMatch(e -> (e + next) % k == 0);
 					if (!skipAdd)
 						maxSubset.add(next);
-					nextIdx++;
+					otherIdx++;
 				}
 				max = maxSubset.size() > max ? maxSubset.size() : max;
 				maxSubset = new ArrayList<>();
 			}
 			return max;
 		}
+		
+		static int nonDivisibleSubset(int k, List<Integer> s) {
+	        int[] remains=new int[k];
+	        for (int i=0;i<s.size();i++){
+	            remains[s.get(i)%k]++;
+	        }
+	        for(int i=0;i<remains.length;i++) {
+	        	System.out.print(remains[i]+ ", ");
+	        }
+	        System.out.println();
+	        int result=0;
+	        if (remains[0]>0){ // if atleast one input is completely divisible
+	            result++;
+	        }
+	        for (int i=1;i<remains.length;i++){
+	            if(i==(k-i)){
+	                result++;
+	            }else {
+	                if (remains[i]>=remains[k-i]){
+	                    result+=remains[i];
+	                }else {
+	                    result+=remains[k-i];
+	                }
+	                remains[i]=0;
+	                remains[k-i]=0;
+	            }
+	        }
+	        return result;
+	    }
+
 
 	}
 

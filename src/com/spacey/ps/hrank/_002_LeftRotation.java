@@ -6,8 +6,11 @@ import java.security.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.function.*;
 import java.util.regex.*;
-
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 public class _002_LeftRotation {
 
 	
@@ -17,48 +20,63 @@ Input
 1 2 3 4 5
 */
 	// Complete the rotLeft function below.
-	static int[] rotLeft(int[] a, int d) {
-		int[] newArr = new int[a.length];
-		if(d > a.length) return new int[0];
-		for (int i = 0; i < a.length; i++) {
-			int newIx = (i+(a.length-d)) % a.length;
-			System.out.println("Moving " + i + " value into " + newIx);
-			newArr[newIx] = a[i];
-		}
-		return newArr;
-	}
+//	static int[] rotLeft(int[] a, int d) {
+//		int[] newArr = new int[a.length];
+//		if(d > a.length) return new int[0];
+//		for (int i = 0; i < a.length; i++) {
+//			int newIx = (i+(a.length-d)) % a.length;
+//			System.out.println("Moving " + i + " value into " + newIx);
+//			newArr[newIx] = a[i];
+//		}
+//		return newArr;
+//	}
 
-	private static final Scanner scanner = new Scanner(System.in);
+    /*
+     * Complete the 'rotateLeft' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts following parameters:
+     *  1. INTEGER d
+     *  2. INTEGER_ARRAY arr
+     */
 
-	public static void main(String[] args) throws IOException {
-		String[] nd = scanner.nextLine().split(" ");
+    public static List<Integer> rotateLeft(int d, List<Integer> arr) {
+    // Write your code here
+    	int[] a = arr.stream().mapToInt(i->i).toArray();
+        Integer[] newArr = new Integer[a.length];
+        if(d > a.length) return Arrays.asList();
+        for (int i = 0; i < a.length; i++) {
+            int newIx = (i+(a.length-d)) % a.length;
+            System.out.println("Moving " + i + " value into " + newIx);
+            newArr[newIx] = a[i];
+        }
+        return Arrays.asList(newArr);
+    }
 
-		int n = Integer.parseInt(nd[0]);
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-		int d = Integer.parseInt(nd[1]);
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
 
-		int[] a = new int[n];
+        int n = Integer.parseInt(firstMultipleInput[0]);
 
-		String[] aItems = scanner.nextLine().split(" ");
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        int d = Integer.parseInt(firstMultipleInput[1]);
 
-		for (int i = 0; i < n; i++) {
-			int aItem = Integer.parseInt(aItems[i]);
-			a[i] = aItem;
-		}
+        List<Integer> arr = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+            .map(Integer::parseInt)
+            .collect(toList());
 
-		int[] result = rotLeft(a, d);
+        List<Integer> result = _002_LeftRotation.rotateLeft(d, arr);
 
-		for (int i = 0; i < result.length; i++) {
-			System.out.print(String.valueOf(result[i]));
+        bufferedWriter.write(
+            result.stream()
+                .map(Object::toString)
+                .collect(joining(" "))
+            + "\n"
+        );
 
-			if (i != result.length - 1) {
-				System.out.print(" ");
-			}
-		}
-
-		System.out.println();
-
-		scanner.close();
-	}
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
 }

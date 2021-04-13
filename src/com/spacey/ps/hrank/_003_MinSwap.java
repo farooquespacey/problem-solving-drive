@@ -12,11 +12,22 @@ public class _003_MinSwap {
 
     // Complete the minimumSwaps function below.
     static int minimumSwaps(int[] arr) {
-    	int noOfSwaps = arr.length - 1;
-    	for(int i=1; i<=arr.length; i++) {
-    		if(i == arr[i-1]) noOfSwaps -= 1;
-    	}
-    	return noOfSwaps;
+        int i =0;
+        int count=0;
+        int temp;
+        int  n = arr.length;
+        while(i<n){
+            if(arr[i] != i+1){
+                temp = arr[i];
+                arr[i] = arr[temp-1];
+                arr[temp-1]=temp;
+                count++;
+            }
+            else{
+                i++;
+            }
+        }
+        return count;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -37,10 +48,8 @@ public class _003_MinSwap {
 
         int res = minimumSwaps(arr);
 
-        System.out.print(String.valueOf(res));
-        System.out.println();
+        System.out.println(String.valueOf(res));
 
-        scanner.close();
-    }
+        scanner.close();    }
 }
 

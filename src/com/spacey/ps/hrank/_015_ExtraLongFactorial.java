@@ -20,7 +20,7 @@ public class _015_ExtraLongFactorial {
     	}
     	System.out.println(res);
     }
-
+    
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

@@ -6,6 +6,11 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * WSN
+ * @author Night King
+ *
+ */
 public class PickTopApps {
 
 	public static class UserRating {

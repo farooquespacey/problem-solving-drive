@@ -17,10 +17,10 @@ public class _014_ClimbingLeaderboard {
 //		for (int i = 0; i < scores.length; i++) {
 //			sortedNums.add(scores[i]);
 //		}
-		
-		//----
+
+		// ----
 		Set<Integer> sortedNums = new LinkedHashSet<Integer>(scores.length);
-		for (int i = scores.length-1; i >= 0; i--) {
+		for (int i = scores.length - 1; i >= 0; i--) {
 			sortedNums.add(scores[i]);
 		}
 		List<Integer> sortedNumLst = new ArrayList<Integer>(sortedNums);
@@ -30,24 +30,24 @@ public class _014_ClimbingLeaderboard {
 //			if(sortedNumLst.contains(scores[i])) continue;
 //			sortedNumLst.add(scores[i]);
 //		}
-		
-		
+
 		System.out.println(sortedNumLst);
 		System.out.println("Ranks before: " + sortedNumLst.size());
 		int[] ranks = new int[alice.length];
-		int index = 0;
-		int n = sortedNumLst.size();
+		int ranksCrossed = 0;
+		int totalRanks = sortedNumLst.size();
 		for (int i = 0; i < alice.length; i++) {
-			while(n>index && alice[i] >= sortedNumLst.get(index))
-				index += 1;
-			ranks[i] = n+1-index;
+			System.out.println("I" + ranksCrossed);
+			while (totalRanks > ranksCrossed && alice[i] >= sortedNumLst.get(ranksCrossed))
+				ranksCrossed += 1;
+			ranks[i] = totalRanks + 1 - ranksCrossed;
 		}
+
 //		for (int i = 0; i < alice.length; i++) {
 //			int INCREMENT = sortedNums.contains(alice[i]) ? 0 : 1;
 //			ranks[i] = sortedNums.tailSet(alice[i]).size() + INCREMENT;
 //		}
-		
-		
+
 		// (*) int array to list(int)
 		// List<Integer> iList =
 		// Arrays.stream(alice).boxed().collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class _014_ClimbingLeaderboard {
 //			int INCREMENT = sortedNums.contains(iList.get(idx)) ? 0 : 1;
 //			ranks[idx] = sortedNums.tailSet(iList.get(idx)).size() + INCREMENT;
 //		});
-		
+
 		return ranks;
 	}
 

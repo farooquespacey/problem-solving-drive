@@ -16,7 +16,7 @@ public class _006_CompareTriplets {
 
 	// Complete the compareTriplets function below.
 	static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
-		List<Integer> res = new ArrayList<Integer>(2);
+		List<Integer> res = new ArrayList<Integer>(a.size());
 		int aRank = 0, bRank = 0;
 		for (int i = 0; i < a.size(); i++) {
 			aRank += (a.get(i) > b.get(i)) ? 1 : 0;

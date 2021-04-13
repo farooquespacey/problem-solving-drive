@@ -51,8 +51,8 @@ public class _020_DetermineDNAHealth {
 
 			String d = firstLastd[2];
 			int totalHealth = getTotalHealth(genes, health, first, last, d);
-			max = (max<totalHealth) ? totalHealth : max;
-			min = (min>totalHealth) ? totalHealth : min;
+			max = (max < totalHealth) ? totalHealth : max;
+			min = (min > totalHealth) ? totalHealth : min;
 		}
 		System.out.println(min + " " + max);
 		scanner.close();
@@ -60,21 +60,14 @@ public class _020_DetermineDNAHealth {
 
 	private static int getTotalHealth(String[] genes, int[] health, int first, int last, String d) {
 
-//		Map<String, Integer> genesToHealth = new LinkedHashMap<>();
 		int totalHealth = 0;
 		for (int i = first; i <= last && genes.length == health.length; i++) {
 			String tmp = d;
-			while (true) {
-				if (tmp.contains(genes[i])) {
-					tmp = tmp.replaceFirst("" + genes[i].charAt(0), "");
-					totalHealth += health[i];
-				} else {
-					break;
-				}
+			while (tmp.contains(genes[i])) {
+				tmp = tmp.substring(tmp.indexOf(genes[i]) + 1);
+				totalHealth += health[i];
 			}
-//			genesToHealth.put(i+":"+genes[i], health[i]);
 		}
-//		System.out.println("Genes2Health: " + genesToHealth);
 		return totalHealth;
 	}
 

@@ -10,6 +10,36 @@ import java.util.regex.*;
 
 public class _017_SherlockAndValidString {
 
+	static String isValidTry2(String s) {
+		int[] cnt = new int[26];
+		for(int i=0; i<s.length(); i++) {
+			cnt[s.charAt(i) - 'a']++;
+		}
+		HashMap<Integer, Integer> buckets = new HashMap<Integer, Integer>();
+		for (int i = 0; i < 26; i++)
+			if (cnt[i] > 0) {
+				if (!buckets.containsKey(cnt[i]))
+					buckets.put(cnt[i], 0);
+				buckets.put(cnt[i], buckets.get(cnt[i])+1);
+			}
+		int min = 1 << 30;
+		for (Map.Entry<Integer, Integer> e : buckets.entrySet()) {
+			min = Math.min(min, e.getValue());
+		}
+		if (buckets.size() == 1 || (buckets.size() == 2 && min <= 1))
+			return "YES";
+		else
+			return "NO";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// Complete the isValid function below.
 	static String isValid(String s) {
 		Map<Character, Integer> charMap = new HashMap<Character, Integer>();
@@ -43,7 +73,7 @@ public class _017_SherlockAndValidString {
 	public static void main(String[] args) throws IOException {
 		String s = scanner.nextLine();
 
-		String result = isValid(s);
+		String result = isValidTry2(s);
 
 		System.out.println(result);
 		scanner.close();

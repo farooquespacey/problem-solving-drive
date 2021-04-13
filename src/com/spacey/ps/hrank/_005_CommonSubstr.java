@@ -23,6 +23,7 @@ public class _005_CommonSubstr {
     		higher = fArr;
     	}
     	for(String fCurrent: higher) {
+    		System.out.println(fCurrent);
     		if(lesser.contains(fCurrent)) {
     			status = "YES";
     			break;

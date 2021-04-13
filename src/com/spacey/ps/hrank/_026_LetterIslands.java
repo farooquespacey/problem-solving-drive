@@ -48,6 +48,24 @@ public class _026_LetterIslands {
 		}
 		return substrThatSatisfies;
 	}
+	
+	
+	
+//	static int letterIslandsTry2(String s, int k) {
+//		int len = s.length();
+//		int comb = 0;
+//		for(int currIdx=0; currIdx<len; currIdx++) {
+//			int nextIdx = currIdx;
+//			String substr =  s.substring(currIdx, nextIdx);
+//			while(nextIdx <= len && s.indexOf(substr)>-1) {
+//				substr = s.substring(currIdx, nextIdx);
+//				if(getMarkedIslands(s, substr) == k) {
+//					comb++;
+//				}
+//				nextIdx++;
+//			}
+//		}
+//	}
 
 	private static final Scanner scanner = new Scanner(System.in);
 
