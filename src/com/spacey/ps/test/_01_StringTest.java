@@ -1,5 +1,6 @@
 package com.spacey.ps.test;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,6 +53,8 @@ public class _01_StringTest {
 		findsubsequences(s.substring(1), ans);
 	}
 
+	
+	
 	// Method 1: Substrings with no recursion
 	public static void substringsNoRecursion(String word) {
 		for (int from = 0; from < word.length(); from++) {
@@ -137,9 +140,24 @@ public class _01_StringTest {
 			consecutiveBins(k-1, next1);
 		}
 	}
+	
+	private static int findMaxPalindromeSubsequence(String s, String ans) {
+		if (s.length() == 0) {
+			String reversed = new StringBuilder(ans).reverse().toString();
+			return ans.equals(reversed) ? ans.length() : 0;
+		}
+		int sWithCurr = findMaxPalindromeSubsequence(s.substring(1), ans + s.charAt(0));
+		int sWithoutCurr = findMaxPalindromeSubsequence(s.substring(1), ans);
+		return Math.max(sWithCurr, sWithoutCurr);
+	}
 
+	
+	public static int findMaxPalindromeSubsequence(String inp){
+		return findMaxPalindromeSubsequence(inp, "");
+	}
+	
 	public static void main(String[] args) {
-		String inp = "abcd";
+		String inp = "abc";
 		int n = inp.length();
 		// 1. subsequence ex:- i/p - "abc" o/p - a,b,c,ab,ac,bc,abc
 		findsubsequences(inp, "");
@@ -162,9 +180,8 @@ public class _01_StringTest {
 		// 5. binary nums combination of the given length
 		// ex:- i/p - 2 o/p - 00,01,10,11 
 		consecutiveBins(2, "");
-		
+		System.out.println("\n========================================");
+		System.out.println(findMaxPalindromeSubsequence("BBABCBCAB"));
 	}
-
-
 
 }

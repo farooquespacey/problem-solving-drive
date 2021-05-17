@@ -62,7 +62,7 @@ public class QueryOnQueues {
 	}
 
 	public static void main(String[] args) {
-		int[] res = solve(4, new int[] { 4, 2, 1, 3 }, 2, new int[] { 1, 4 });
+		int[] res = solve(4, new int[] { 1,2,3 }, 2, new int[] { 2,3 });
 		for (int i = 0; i < res.length; i++) {
 			System.out.println(res[i]);
 		}

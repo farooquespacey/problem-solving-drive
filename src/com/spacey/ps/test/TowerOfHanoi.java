@@ -18,4 +18,5 @@ class TowerOfHanoi {
 		int n = 3; // Number of disks
 		towerOfHanoi(n, 'A', 'C', 'B'); // A, B and C are names of rods
 	}
+
 }

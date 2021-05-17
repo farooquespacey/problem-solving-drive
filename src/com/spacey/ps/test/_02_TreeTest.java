@@ -150,10 +150,48 @@ public class _02_TreeTest {
 		return minValue < root.data && root.data < maxValue && check(root.left, minValue, root.data)
 				&& check(root.right, root.data, maxValue);
 	}
+	
+	public static Node lca(Node root, int v1, int v2) {
+		// Decide if you have to call rekursively
+		// Samller than both
+		if (root.data < v1 && root.data < v2) {
+			return lca(root.right, v1, v2);
+		}
+		// Bigger than both
+		if (root.data > v1 && root.data > v2) {
+			return lca(root.left, v1, v2);
+		}
+		// Else solution already found
+		return root;
+	}
 
+    /* Returns true if binary tree with root as root is height-balanced */
+    static boolean isBalanced(Node node)
+    {
+        int lh; /* for height of left subtree */
+ 
+        int rh; /* for height of right subtree */
+ 
+        /* If tree is empty then return true */
+        if (node == null)
+            return true;
+ 
+        /* Get the height of left and right sub trees */
+        lh = height(node.left);
+        rh = height(node.right);
+ 
+        if (Math.abs(lh - rh) <= 1
+            && isBalanced(node.left)
+            && isBalanced(node.right))
+            return true;
+ 
+        /* If we reach here then tree is not height-balanced */
+        return false;
+    }
+	
 	public static void main(String[] args) {
 		Node root = null;
-		int[] array = { 1, 2, 3, 4, 5, 6, 7 };
+		int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 //		int[] array = { 10, 6, 18, 4, 8, 15, 21 };
 		
 		root = insertLevelOrder(array, root, 0);
@@ -180,6 +218,8 @@ public class _02_TreeTest {
 		
 		mapValues(root);
 		inOrderTraversal(root);
+		
+		System.out.println("\nIs Balanced Tree? " + isBalanced(root));
 	}
 	
 	

@@ -6,17 +6,17 @@ public class GenerateBinaryStringsWithoutConsecutive1s {
 		int k = 3;
 		consecutiveBins(k, "");
 	}
+	
+
+
 
 	private static void consecutiveBins(int k, String prev) {
-		String next0 = prev+"0";
-		String next1 = prev+"1";
-		if(k == 1) {
-			System.out.println(next0);
-			System.out.println(next1);
-		} else {
-			consecutiveBins(k-1, next0);
-			consecutiveBins(k-1, next1);
+		if(k==0) {
+			System.out.print(prev + " ");
+			return;
 		}
+		consecutiveBins(k-1, prev + "0");
+		consecutiveBins(k-1, prev + "1");
 	}
 
 }

@@ -10,16 +10,16 @@ public class StringUpperLowerComb {
 		System.out.println();
 	}
 
-	public static void printAll(char a[], int l, int r) {
-		if (l == r) {
+	public static void printAll(char a[], int l) {
+		if (l == a.length) {
 			printArray(a);
 			return;
 		}
 
 		a[l] = Character.toUpperCase(a[l]);
-		printAll(a, l + 1, r);
+		printAll(a, l + 1);
 		a[l] = Character.toLowerCase(a[l]);
-		printAll(a, l + 1, r);
+		printAll(a, l + 1);
 
 	}
 
@@ -28,7 +28,7 @@ public class StringUpperLowerComb {
 		String str = "the";
 		char a[] = str.toCharArray();
 
-		printAll(a, 0, a.length);
+		printAll(a, 0);
 
 	}
 
