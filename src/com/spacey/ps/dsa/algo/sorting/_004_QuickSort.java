@@ -16,6 +16,10 @@ import com.spacey.ps.dsa.Utils;
  * 
  * 4) Pick median as pivot.
  * 
+ * Time Complexity: O(n^2)
+ * 
+ * Auxiliary Space: O(1)
+ * 
  * @author Spacey4uq
  *
  */

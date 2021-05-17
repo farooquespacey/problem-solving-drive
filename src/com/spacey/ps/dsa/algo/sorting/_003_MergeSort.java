@@ -11,6 +11,10 @@ import com.spacey.ps.dsa.Utils;
  * arr[m+1..r] are sorted and merges the two sorted sub-arrays into one. See the
  * following C implementation for details.
  * 
+ * Time Complexity: O(n logn)
+ * 
+ * Auxiliary Space: O(n)
+ * 
  * @author Spacey4uq
  */
 public class _003_MergeSort {

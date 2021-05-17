@@ -63,7 +63,9 @@ public class _005_BubbleSort {
 
 	public static void main(String[] args) {
 		int[] inp = { 15, 45, 35, 25, 5 };
-		Utils.printArray(bubbleSort(inp));
+		Utils.printArray(bubbleSort(inp.clone()));
+		System.out.println();
+		Utils.printArray(optimizedBubbleSort(inp.clone(), inp.length));
 	}
 
 }
