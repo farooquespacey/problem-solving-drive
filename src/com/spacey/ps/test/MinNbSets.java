@@ -63,7 +63,7 @@ public class MinNbSets {
 
 	public static void main(String[] args) {
 		String input1 = "3456";
-		int input2 = 6;
+		int input2 = 1;
 		System.out.println(minSets(input1, input2));
 	}
 
