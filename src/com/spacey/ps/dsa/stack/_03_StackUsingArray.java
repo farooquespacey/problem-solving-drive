@@ -2,46 +2,50 @@ package com.spacey.ps.dsa.stack;
 
 /* Java program to implement basic stack
 operations */
-class _03_StackUsingArray {
-	static final int MAX = 1000;
-	int top;
-	int a[] = new int[MAX]; // Maximum size of Stack
+@SuppressWarnings("unchecked")
+class _03_StackUsingArray<T> {
+	private int top;
+	private T[] els; // Maximum size of Stack
+	private int capacity;
 
 	boolean isEmpty() {
 		return (top < 0);
 	}
 
 	_03_StackUsingArray() {
-		top = -1;
+		this(16);
 	}
 
-	boolean push(int x) {
-		if (top >= (MAX - 1)) {
+	_03_StackUsingArray(int cap) {
+		top = -1;
+		capacity = cap;
+		els = (T[]) new Object[capacity];
+	}
+
+	boolean push(T x) {
+		if (top >= (capacity - 1)) {
 			System.out.println("Stack Overflow");
 			return false;
 		} else {
-			a[++top] = x;
-			System.out.println(x + " pushed into stack");
+			els[++top] = x;
 			return true;
 		}
 	}
 
-	int pop() {
+	T pop() {
 		if (top < 0) {
-			System.out.println("Stack Underflow");
-			return 0;
+			throw new RuntimeException("Stack Overflow");
 		} else {
-			int x = a[top--];
+			T x = els[top--];
 			return x;
 		}
 	}
 
-	int peek() {
+	T peek() {
 		if (top < 0) {
-			System.out.println("Stack Underflow");
-			return 0;
+			throw new RuntimeException("Stack Overflow");
 		} else {
-			int x = a[top];
+			T x = els[top];
 			return x;
 		}
 	}
@@ -50,10 +54,10 @@ class _03_StackUsingArray {
 // Driver code
 class Main {
 	public static void main(String args[]) {
-		_03_StackUsingArray s = new _03_StackUsingArray();
-		s.push(10);
-		s.push(20);
-		s.push(30);
+		_03_StackUsingArray<String> s = new _03_StackUsingArray<>();
+		s.push("Farooque");
+		s.push("Spacey");
+		s.push("Spaceman");
 		System.out.println(s.pop() + " Popped from stack");
 	}
 }

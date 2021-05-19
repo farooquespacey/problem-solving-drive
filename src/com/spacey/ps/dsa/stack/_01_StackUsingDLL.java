@@ -2,6 +2,7 @@ package com.spacey.ps.dsa.stack;
 
 public class _01_StackUsingDLL<T> implements Iterable<T> {
 
+	// since doubly linked list is already defined by java, let's use that
 	private java.util.LinkedList<T> list = new java.util.LinkedList<T>();
 
 	// Create an empty stack
