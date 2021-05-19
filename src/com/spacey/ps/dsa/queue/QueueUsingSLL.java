@@ -1,5 +1,12 @@
 package com.spacey.ps.dsa.queue;
 
+/**
+ * Java program to implement basic queue operations using singly linked list
+ * 
+ * @author Spacey4uq
+ *
+ * @param <T> the type of elements held in this collection
+ */
 public class QueueUsingSLL<T> {
 	private Node<T> head;
 	private Node<T> tail;

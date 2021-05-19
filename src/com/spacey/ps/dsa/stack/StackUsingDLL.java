@@ -1,5 +1,12 @@
 package com.spacey.ps.dsa.stack;
 
+/**
+ * Java program to implement basic stack operations using doubly linked list
+ * 
+ * @author Spacey4uq
+ *
+ * @param <T> the type of elements held in this collection
+ */
 public class StackUsingDLL<T> implements Iterable<T> {
 
 	// since doubly linked list is already defined by java, let's use that

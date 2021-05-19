@@ -1,5 +1,12 @@
 package com.spacey.ps.dsa.list;
 
+/**
+ * Java program to implement a doubly linked list
+ * 
+ * @author Spacey4uq
+ *
+ * @param <T>
+ */
 public class DoublyLinkedList<T> implements Iterable<T> {
   private int size = 0;
   private Node<T> head = null;

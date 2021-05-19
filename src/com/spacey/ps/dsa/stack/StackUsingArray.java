@@ -1,13 +1,18 @@
 package com.spacey.ps.dsa.stack;
 
-/* Java program to implement basic stack
-operations */
+/**
+ * Java program to implement basic stack operations using an array
+ * 
+ * @author Spacey4uq
+ *
+ * @param <T> the type of elements held in this collection
+ */
 @SuppressWarnings("unchecked")
 class StackUsingArray<T> {
 	private int top;
 	private int capacity;
 	private T[] els; // Maximum size of Stack
-	
+
 	boolean isEmpty() {
 		return (top < 0);
 	}

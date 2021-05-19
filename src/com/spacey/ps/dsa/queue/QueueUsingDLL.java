@@ -1,5 +1,12 @@
 package com.spacey.ps.dsa.queue;
 
+/**
+ * Java program to implement basic queue operations using doubly linked list
+ * 
+ * @author Spacey4uq
+ *
+ * @param <T> the type of elements held in this collection
+ */
 public class QueueUsingDLL<T> implements Iterable<T> {
 
 	// since doubly linked list is already defined by java, let's use that

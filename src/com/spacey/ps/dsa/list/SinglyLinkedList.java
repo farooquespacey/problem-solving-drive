@@ -1,35 +1,35 @@
 package com.spacey.ps.dsa.list;
 
-class SinglyLinkedList {
-	// Represent a node of the singly linked list
-	class Node {
-		int data;
-		Node next;
+/**
+ * Java program to implement a singly linked list
+ * 
+ * @author Spacey4uq
+ *
+ */
+class SinglyLinkedList<T> {
+	// Represent the head and tail of the singly linked list
+	private Node<T> head;
+	private Node<T> tail;
 
-		public Node(int data) {
+	// Represent a node of the singly linked list
+	private static class Node<T> {
+		T data;
+		Node<T> next;
+
+		public Node(T data, Node<T> next) {
 			this.data = data;
-			this.next = null;
+			this.next = next;
 		}
 	}
 
-	// Represent the head and tail of the singly linked list
-	public Node head = null;
-	public Node tail = null;
-
 	// addNode() will add a new node to the list
-	public void addNode(int data) {
+	public void addNode(T data) {
 		// Create a new node
-		Node newNode = new Node(data);
-
-		// Checks if the list is empty
-		if (head == null) {
-			// If list is empty, both head and tail will point to new node
-			head = newNode;
-			tail = newNode;
+		Node<T> newNode = new Node<T>(data, null);
+		if (tail == null) {
+			head = tail = newNode;
 		} else {
-			// newNode will be added after tail such that tail's next will point to newNode
 			tail.next = newNode;
-			// newNode will become new tail of the list
 			tail = newNode;
 		}
 	}
@@ -37,7 +37,7 @@ class SinglyLinkedList {
 	// display() will display all the nodes present in the list
 	public void display() {
 		// Node current will point to head
-		Node current = head;
+		Node<T> current = head;
 
 		if (head == null) {
 			System.out.println("List is empty");
@@ -54,7 +54,7 @@ class SinglyLinkedList {
 
 	public static void main(String[] args) {
 
-		SinglyLinkedList sList = new SinglyLinkedList();
+		SinglyLinkedList<Integer> sList = new SinglyLinkedList<>();
 
 		// Add nodes to the list
 		sList.addNode(1);
