@@ -8,15 +8,15 @@ import java.util.Stack;
 
 public class BinarySearchTree<T extends Comparable<T>> {
 
-	Node root;
+	Node<T> root;
 	int nodeCount = 0;
 
-	private class Node {
+	static class Node<T> {
 		T data;
-		Node left;
-		Node right;
+		Node<T> left;
+		Node<T> right;
 
-		public Node(T data, Node left, Node right) {
+		public Node(T data, Node<T> left, Node<T> right) {
 			this.data = data;
 			this.left = left;
 			this.right = right;
@@ -33,7 +33,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return contains(root, element);
 	}
 
-	private boolean contains(Node node, T element) {
+	private boolean contains(Node<T> node, T element) {
 		if (node == null)
 			return false;
 		int compared = node.data.compareTo(element);
@@ -55,9 +55,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	private Node add(Node node, T element) {
+	private Node<T> add(Node<T> node, T element) {
 		if (node == null)
-			node = new Node(element, null, null);
+			node = new Node<T>(element, null, null);
 		else if (node.data.compareTo(element) < 0)
 			node.right = add(node.right, element);
 		else
@@ -74,7 +74,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return false;
 	}
 
-	private Node remove(Node node, T element) {
+	private Node<T> remove(Node<T> node, T element) {
 		int compared = node.data.compareTo(element);
 		if (compared < 0) {
 			node.right = remove(node.right, element);
@@ -86,7 +86,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			} else if (node.right == null) {
 				node = node.left;
 			} else {
-				Node minNode = findMinNode(node.right);
+				Node<T> minNode = findMinNode(node.right);
 				node.data = minNode.data;
 				node.right = remove(node.right, minNode.data);
 			}
@@ -94,7 +94,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return node;
 	}
 
-	private Node findMinNode(Node node) {
+	private Node<T> findMinNode(Node<T> node) {
 		while (node.left != null)
 			node = node.left;
 		return node;
@@ -118,7 +118,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	// BFS
 	private Iterator<T> levelOrderTraversal() {
 		System.out.println("Level Order Traversal");
-		Queue<Node> queue = new LinkedList<>();
+		Queue<Node<T>> queue = new LinkedList<>();
 		queue.add(root);
 
 		return new Iterator<T>() {
@@ -130,7 +130,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 			@Override
 			public T next() {
-				Node node = queue.poll();
+				Node<T> node = queue.poll();
 				if (node.left != null)
 					queue.add(node.left);
 				if (node.right != null)
@@ -144,13 +144,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	// left, right , root
 	private Iterator<T> postOrderTraversal() {
 		System.out.println("PostOrder Traversal");
-		Stack<Node> stack1 = new Stack<>();
-		Stack<Node> stack2 = new Stack<>();
+		Stack<Node<T>> stack1 = new Stack<>();
+		Stack<Node<T>> stack2 = new Stack<>();
 
 		stack1.push(root);
 
 		while (!stack1.empty()) {
-			Node node = stack1.pop();
+			Node<T> node = stack1.pop();
 			if (node != null) {
 				stack2.push(node);
 				if (node.left != null)
@@ -176,7 +176,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	// root, left, right
 	private Iterator<T> preOrderTraversal() {
 		System.out.println("PreOrder Traversal");
-		Stack<Node> stack = new Stack<>();
+		Stack<Node<T>> stack = new Stack<>();
 		stack.push(root);
 
 		return new Iterator<T>() {
@@ -188,7 +188,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 			@Override
 			public T next() {
-				Node node = stack.pop();
+				Node<T> node = stack.pop();
 
 				if (node.right != null)
 					stack.push(node.right);
@@ -202,11 +202,11 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	// left, root, right
 	private Iterator<T> inOrderTraversal() {
 		System.out.println("InOrder Traversal");
-		Stack<Node> stack = new Stack<>();
+		Stack<Node<T>> stack = new Stack<>();
 		stack.push(root);
 
 		return new Iterator<T>() {
-			Node trav = root;
+			Node<T> trav = root;
 
 			@Override
 			public boolean hasNext() {
@@ -220,7 +220,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 					trav = trav.left;
 				}
 
-				Node node = stack.pop();
+				Node<T> node = stack.pop();
 
 				if (node.right != null) {
 					stack.push(node.right);
@@ -231,12 +231,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		};
 	}
 
-	public List<T> inOrderTraversed() {
-		List<T> result = new LinkedList<>();
-		Stack<Node> stack = new Stack<>();
+	public static <T> List<T> inOrderTraversed(Node<T> root) {
+		List<T> result = new LinkedList<T>();
+		Stack<Node<T>> stack = new Stack<>();
 		stack.push(root);
 
-		Node trav = root;
+		Node<T> trav = root;
 
 		while (root != null && !stack.isEmpty()) {
 			while (trav != null && trav.left != null) {
@@ -244,7 +244,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 				stack.push(trav);
 			}
 
-			Node node = stack.pop();
+			Node<T> node = stack.pop();
 			if (node.right != null) {
 				trav = node.right;
 				stack.push(node.right);
@@ -254,13 +254,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return result;
 	}
 
-	public List<T> inOrderTraversedRecursively() {
+	public static <T> List<T> inOrderTraversedRecursively(Node<T> root) {
 		List<T> result = new LinkedList<>();
 		inOrderTraversedRecursively(root, result);
 		return result;
 	}
 
-	private void inOrderTraversedRecursively(Node root, List<T> list) {
+	private static <T> void inOrderTraversedRecursively(Node<T> root, List<T> list) {
 		if (root != null) {
 			inOrderTraversedRecursively(root.left, list);
 			list.add(root.data);
@@ -268,13 +268,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	public List<T> preOrderTraversed() {
+	public static <T> List<T> preOrderTraversed(Node<T> root) {
 		List<T> result = new LinkedList<>();
-		Stack<Node> stack = new Stack<>();
+		Stack<Node<T>> stack = new Stack<>();
 		stack.push(root);
 
 		while (root != null && !stack.isEmpty()) {
-			Node node = stack.pop();
+			Node<T> node = stack.pop();
 
 			if (node.right != null)
 				stack.push(node.right);
@@ -285,13 +285,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return result;
 	}
 
-	public List<T> preOrderTraversedRecursively() {
+	public static <T> List<T> preOrderTraversedRecursively(Node<T> root) {
 		List<T> result = new LinkedList<>();
 		preOrderTraversedRecursively(root, result);
 		return result;
 	}
 
-	private void preOrderTraversedRecursively(Node root, List<T> list) {
+	private static <T> void preOrderTraversedRecursively(Node<T> root, List<T> list) {
 		if (root != null) {
 			list.add(root.data);
 			preOrderTraversedRecursively(root.left, list);
@@ -299,13 +299,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	public List<T> postOrderTraversed() {
+	public static <T> List<T> postOrderTraversed(Node<T> root) {
 		List<T> result = new LinkedList<>();
-		Stack<Node> stack1 = new Stack<>();
-		Stack<Node> stack2 = new Stack<>();
+		Stack<Node<T>> stack1 = new Stack<>();
+		Stack<Node<T>> stack2 = new Stack<>();
 		stack1.push(root);
 		while (!stack1.isEmpty()) {
-			Node node = stack1.pop();
+			Node<T> node = stack1.pop();
 			if (node != null) {
 				stack2.push(node);
 				if (node.left != null)
@@ -319,13 +319,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return result;
 	}
 
-	public List<T> postOrderTraversedRecursively() {
+	public static <T> List<T> postOrderTraversedRecursively(Node<T> root) {
 		List<T> result = new LinkedList<>();
 		postOrderTraversedRecursively(root, result);
 		return result;
 	}
 
-	private void postOrderTraversedRecursively(Node root, List<T> list) {
+	private static <T> void postOrderTraversedRecursively(Node<T> root, List<T> list) {
 		if (root != null) {
 			postOrderTraversedRecursively(root.left, list);
 			postOrderTraversedRecursively(root.right, list);
@@ -333,13 +333,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		}
 	}
 
-	public List<T> levelOrderTraversed() {
+	public static <T> List<T> levelOrderTraversed(Node<T> root) {
 		List<T> result = new LinkedList<>();
-		Queue<Node> queue = new LinkedList<>();
+		Queue<Node<T>> queue = new LinkedList<>();
 		queue.add(root);
 
 		while (root != null && !queue.isEmpty()) {
-			Node node = queue.poll();
+			Node<T> node = queue.poll();
 			if (node.left != null)
 				queue.add(node.left);
 			if (node.right != null)
@@ -349,18 +349,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return result;
 	}
 
-	public List<T> levelOrderTraversedRecursively() {
+	public static <T> List<T> levelOrderTraversedRecursively(Node<T> root) {
 		List<T> result = new LinkedList<>();
-		levelOrderTraversedRecursively(result);
+		levelOrderTraversedRecursively(root, result);
 		return result;
 	}
-	
 
-	private int height() {
-		return height(root);
-	}
-	
-	private int height(Node root) {
+	private static <T> int height(Node<T> root) {
 		if (root == null)
 			return 0;
 		int leftHeight = 0;
@@ -375,14 +370,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return Math.max(leftHeight, rightHeight);
 	}
 
-	private void levelOrderTraversedRecursively(List<T> list) {
-		int levels = height() + 1;
+	private static <T> void levelOrderTraversedRecursively(Node<T> root, List<T> list) {
+		int levels = height(root) + 1;
 		for (int i = 1; i <= levels; i++) {
 			levelOrderTraversedRecursively(root, list, i);
 		}
 	}
 
-	private void levelOrderTraversedRecursively(Node root, List<T> list, int level) {
+	private static <T> void levelOrderTraversedRecursively(Node<T> root, List<T> list, int level) {
 		if (root == null)
 			return;
 		if (level == 1) {

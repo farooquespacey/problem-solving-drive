@@ -28,20 +28,20 @@ public class Main {
 
 		System.out.println("\n\n\nDisplay traversed tree:-");
 		System.out.println("InOrder traversed");
-		System.out.println("w/o recursion:\t" + bst.inOrderTraversed());
-		System.out.println("with recursion:\t" + bst.inOrderTraversedRecursively());
+		System.out.println("w/o recursion:\t" + BinarySearchTree.inOrderTraversed(bst.root));
+		System.out.println("with recursion:\t" + BinarySearchTree.inOrderTraversedRecursively(bst.root));
 
 		System.out.println("PreOrder traversed");
-		System.out.println("w/o recursion:\t" + bst.preOrderTraversed());
-		System.out.println("with recursion:\t" + bst.preOrderTraversedRecursively());
+		System.out.println("w/o recursion:\t" + BinarySearchTree.preOrderTraversed(bst.root));
+		System.out.println("with recursion:\t" + BinarySearchTree.preOrderTraversedRecursively(bst.root));
 
 		System.out.println("PostOrder traversed");
-		System.out.println("w/o recursion:\t" + bst.postOrderTraversed());
-		System.out.println("with recursion:\t" + bst.postOrderTraversedRecursively());
+		System.out.println("w/o recursion:\t" + BinarySearchTree.postOrderTraversed(bst.root));
+		System.out.println("with recursion:\t" + BinarySearchTree.postOrderTraversedRecursively(bst.root));
 
 		System.out.println("LevelOrder traversed");
-		System.out.println("w/o recursion:\t" + bst.levelOrderTraversed());
-		System.out.println("with recursion:\t" + bst.levelOrderTraversedRecursively());
+		System.out.println("w/o recursion:\t" + BinarySearchTree.levelOrderTraversed(bst.root));
+		System.out.println("with recursion:\t" + BinarySearchTree.levelOrderTraversedRecursively(bst.root));
 
 	}
 
