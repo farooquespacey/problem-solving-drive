@@ -13,12 +13,12 @@ public class _02_TreeTest {
 			this.right = null;
 		}
 	}
-	
-    public static int mapValues(Node node){
+
+	public static int mapValues(Node node) {
 		if (node == null) {
 			return 0;
 		}
-		if(node.left == null && node.right == null) {
+		if (node.left == null && node.right == null) {
 			return node.data;
 		}
 		node.data += mapValues(node.left);
@@ -34,7 +34,7 @@ public class _02_TreeTest {
 //            return node.data + mapValues(node.right);
 //        }
 //        return node.data;
-    }
+	}
 
 	public static Node insertLevelOrder(int a[], Node root, int i) {
 		if (i < a.length) {
@@ -127,7 +127,7 @@ public class _02_TreeTest {
 
 	private static boolean checkBST(Node root) {
 		return check(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
-		
+
 //		My own try(has a bug, try to figure that out):-		
 //		if(root == null) {
 //			return true;
@@ -150,7 +150,7 @@ public class _02_TreeTest {
 		return minValue < root.data && root.data < maxValue && check(root.left, minValue, root.data)
 				&& check(root.right, root.data, maxValue);
 	}
-	
+
 	public static Node lca(Node root, int v1, int v2) {
 		// Decide if you have to call rekursively
 		// Samller than both
@@ -165,35 +165,32 @@ public class _02_TreeTest {
 		return root;
 	}
 
-    /* Returns true if binary tree with root as root is height-balanced */
-    static boolean isBalanced(Node node)
-    {
-        int lh; /* for height of left subtree */
- 
-        int rh; /* for height of right subtree */
- 
-        /* If tree is empty then return true */
-        if (node == null)
-            return true;
- 
-        /* Get the height of left and right sub trees */
-        lh = height(node.left);
-        rh = height(node.right);
- 
-        if (Math.abs(lh - rh) <= 1
-            && isBalanced(node.left)
-            && isBalanced(node.right))
-            return true;
- 
-        /* If we reach here then tree is not height-balanced */
-        return false;
-    }
-	
+	/* Returns true if binary tree with root as root is height-balanced */
+	static boolean isBalanced(Node node) {
+		int lh; /* for height of left subtree */
+
+		int rh; /* for height of right subtree */
+
+		/* If tree is empty then return true */
+		if (node == null)
+			return true;
+
+		/* Get the height of left and right sub trees */
+		lh = height(node.left);
+		rh = height(node.right);
+
+		if (Math.abs(lh - rh) <= 1 && isBalanced(node.left) && isBalanced(node.right))
+			return true;
+
+		/* If we reach here then tree is not height-balanced */
+		return false;
+	}
+
 	public static void main(String[] args) {
 		Node root = null;
 		int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 //		int[] array = { 10, 6, 18, 4, 8, 15, 21 };
-		
+
 		root = insertLevelOrder(array, root, 0);
 //		System.out.println(root.data + ":" + root.left.data + ":" + root.right.data);
 
@@ -215,13 +212,11 @@ public class _02_TreeTest {
 		System.out.println();
 //
 		System.out.println("Is BST? " + checkBST(root));
-		
+
 		mapValues(root);
 		inOrderTraversal(root);
-		
+
 		System.out.println("\nIs Balanced Tree? " + isBalanced(root));
 	}
-	
-	
-	
+
 }
