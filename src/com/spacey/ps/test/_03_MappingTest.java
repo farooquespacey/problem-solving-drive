@@ -23,7 +23,7 @@ public class _03_MappingTest {
 
 		Stream.of("a", "b", "c");
 		String x = "1 2 3 4";
-		Arrays.stream(x.split(" ")).map(e -> Integer.parseInt(e))
+		Arrays.stream(x.split(" ")).map(Integer::parseInt)
 		.filter(e -> e % 2 == 0)
 		.collect(Collectors.toList())
 		.forEach(System.out::println);

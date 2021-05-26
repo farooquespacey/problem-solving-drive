@@ -14,15 +14,15 @@ public class _02_TreeTest {
 		}
 	}
 
-	public static int mapValues(Node node) {
+	public static int sumOfLeftSubtreePlusCurrNode(Node node) {
 		if (node == null) {
 			return 0;
 		}
 		if (node.left == null && node.right == null) {
 			return node.data;
 		}
-		node.data += mapValues(node.left);
-		return node.data + mapValues(node.right);
+		node.data += sumOfLeftSubtreePlusCurrNode(node.left);
+		return node.data + sumOfLeftSubtreePlusCurrNode(node.right);
 //		My own try:-		
 //        if(node == null) {
 //            return 0;
@@ -36,14 +36,14 @@ public class _02_TreeTest {
 //        return node.data;
 	}
 
-	public static Node insertLevelOrder(int a[], Node root, int i) {
+	public static Node insertLevelOrder(int a[], Node node, int i) {
 		if (i < a.length) {
 			Node tmp = new Node(a[i]);
-			root = tmp;
-			root.left = insertLevelOrder(a, root.left, 2 * i + 1);
-			root.right = insertLevelOrder(a, root.right, 2 * i + 2);
+			node = tmp;
+			node.left = insertLevelOrder(a, node.left, 2 * i + 1);
+			node.right = insertLevelOrder(a, node.right, 2 * i + 2);
 		}
-		return root;
+		return node;
 	}
 
 	public static void inOrderTraversal(Node root) {
@@ -213,7 +213,7 @@ public class _02_TreeTest {
 //
 		System.out.println("Is BST? " + checkBST(root));
 
-		mapValues(root);
+		sumOfLeftSubtreePlusCurrNode(root);
 		inOrderTraversal(root);
 
 		System.out.println("\nIs Balanced Tree? " + isBalanced(root));

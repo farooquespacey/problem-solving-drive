@@ -68,7 +68,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	public boolean remove(T element) {
 		if (contains(element)) {
 			root = remove(root, element);
-			nodeCount++;
+			nodeCount--;
 			return true;
 		}
 		return false;
@@ -86,6 +86,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			} else if (node.right == null) {
 				node = node.left;
 			} else {
+				// findMinNode from the right, (or symmetrically findMaxNode from the left)
 				Node<T> minNode = findMinNode(node.right);
 				node.data = minNode.data;
 				node.right = remove(node.right, minNode.data);

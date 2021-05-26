@@ -1,8 +1,14 @@
 package com.spacey.ps.test;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+import jdk.jfr.events.FileWriteEvent;
 
 public class _01_StringTest {
 
@@ -53,8 +59,6 @@ public class _01_StringTest {
 		findsubsequences(s.substring(1), ans);
 	}
 
-	
-	
 	// Method 1: Substrings with no recursion
 	public static void substringsNoRecursion(String word) {
 		for (int from = 0; from < word.length(); from++) {
@@ -118,9 +122,22 @@ public class _01_StringTest {
 			permutation(rest, ans + curr);
 		}
 	}
-	
+
+	static Set<String> setOfPermutatedWord = new LinkedHashSet<String>();
+
+	static void permutationType2(int len, String ans) {
+		if (len == 0) {
+			setOfPermutatedWord.add(ans);
+			return;
+		}
+		for (char c = '0'; c <= 'z'; c++) {
+			if (Character.isAlphabetic(c) || Character.isDigit(c))
+				permutationType2(len - 1, ans + c);
+		}
+	}
+
 	private static void stringWithDivision(String inp, String prev) {
-		if(inp.length() == 1) {
+		if (inp.length() == 1) {
 			System.out.print("[" + prev + inp + "],");
 			return;
 		}
@@ -128,19 +145,19 @@ public class _01_StringTest {
 		stringWithDivision(inp.substring(1), first + "");
 		stringWithDivision(inp.substring(1), first + ",");
 	}
-	
+
 	private static void consecutiveBins(int k, String prev) {
-		String next0 = prev+"0";
-		String next1 = prev+"1";
-		if(k == 1) {
+		String next0 = prev + "0";
+		String next1 = prev + "1";
+		if (k == 1) {
 			System.out.print(next0 + ", ");
 			System.out.print(next1 + ", ");
 		} else {
-			consecutiveBins(k-1, next0);
-			consecutiveBins(k-1, next1);
+			consecutiveBins(k - 1, next0);
+			consecutiveBins(k - 1, next1);
 		}
 	}
-	
+
 	private static int findMaxPalindromeSubsequence(String s, String ans) {
 		if (s.length() == 0) {
 			String reversed = new StringBuilder(ans).reverse().toString();
@@ -151,12 +168,11 @@ public class _01_StringTest {
 		return Math.max(sWithCurr, sWithoutCurr);
 	}
 
-	
-	public static int findMaxPalindromeSubsequence(String inp){
+	public static int findMaxPalindromeSubsequence(String inp) {
 		return findMaxPalindromeSubsequence(inp, "");
 	}
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws IOException {
 		String inp = "abc";
 		int n = inp.length();
 		// 1. subsequence ex:- i/p - "abc" o/p - a,b,c,ab,ac,bc,abc
@@ -178,10 +194,15 @@ public class _01_StringTest {
 		stringWithDivision(inp, "");
 		System.out.println("\n========================================");
 		// 5. binary nums combination of the given length
-		// ex:- i/p - 2 o/p - 00,01,10,11 
+		// ex:- i/p - 2 o/p - 00,01,10,11
 		consecutiveBins(2, "");
 		System.out.println("\n========================================");
 		System.out.println(findMaxPalindromeSubsequence("BBABCBCAB"));
+		System.out.println("\n========================================");
+		permutationType2(3, "");
+		System.out.println();
+		System.out.println(setOfPermutatedWord);
+
 	}
 
 }
