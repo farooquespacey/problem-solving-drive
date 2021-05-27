@@ -12,10 +12,9 @@ public class _1520_B_OrdinaryNumbers {
 
 	private static int numOfOrdinaries(int range) {
 		int cnt = 0;
-		int rem = 0;
 		for (int i = 1; i <= range; i++) {
-			rem = i % 10;
 			int tmp = i;
+			int rem = tmp % 10;
 			while (tmp % 10 == rem) {
 				tmp /= 10;
 			}
@@ -26,7 +25,7 @@ public class _1520_B_OrdinaryNumbers {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(numOfOrdinaries(100));
+		System.out.println(numOfOrdinaries(10));
 	}
 
 }

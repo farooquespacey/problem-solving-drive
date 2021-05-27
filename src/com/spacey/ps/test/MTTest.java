@@ -17,7 +17,6 @@ public class MTTest {
 	public static void main(String[] args) {
 		// 4,5,7
 		int arr[] = { 2, 1 };
-		int len = arr.length;
 
 		Arrays.sort(arr);
 		System.out.println(arr[0]);

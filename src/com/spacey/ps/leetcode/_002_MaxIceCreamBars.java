@@ -28,21 +28,21 @@ import java.util.Arrays;
  */
 public class _002_MaxIceCreamBars {
 
-	// Time limit exceeds
-	static int maxIceCream1(int[] costs, int coins) {
-		return maxIceCream1(costs, coins, 0, 0);
-	}
-
-	static int maxIceCream1(int[] costs, int coins, int sum, int count) {
-		if (costs.length == 0 || sum > coins) {
-			return sum > coins ? count - 1 : count;
-		}
-
-		int c1 = maxIceCream1(Arrays.copyOfRange(costs, 1, costs.length), coins, sum + costs[0], count + 1);
-		int c2 = maxIceCream1(Arrays.copyOfRange(costs, 1, costs.length), coins, sum, count);
-
-		return Math.max(c1, c2);
-	}
+	// Time limit exceeds (without sorting)
+	/*
+	 * static int maxIceCream1(int[] costs, int coins) { return maxIceCream1(costs,
+	 * coins, 0, 0); }
+	 * 
+	 * static int maxIceCream1(int[] costs, int coins, int sum, int count) { if
+	 * (costs.length == 0 || sum > coins) { return sum > coins ? count - 1 : count;
+	 * }
+	 * 
+	 * int c1 = maxIceCream1(Arrays.copyOfRange(costs, 1, costs.length), coins, sum
+	 * + costs[0], count + 1); int c2 = maxIceCream1(Arrays.copyOfRange(costs, 1,
+	 * costs.length), coins, sum, count);
+	 * 
+	 * return Math.max(c1, c2); }
+	 */
 
 	static int maxIceCream(int[] costs, int coins) {
 		Arrays.sort(costs);
