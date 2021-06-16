@@ -30,8 +30,8 @@ public class _004_PrefixToInfix {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(prefixToInfix("*+AB-CD"));
-		System.out.println(prefixToInfix("*-A/BC-/AKL"));
+		System.out.println(prefixToInfix("*+AB-CD")); // ((A+B)*(C-D))
+		System.out.println(prefixToInfix("*-A/BC-/AKL")); // ((A-(B/C))*((A/K)-L))
 	}
 
 }

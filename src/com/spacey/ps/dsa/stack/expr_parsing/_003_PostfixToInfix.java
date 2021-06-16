@@ -31,8 +31,8 @@ public class _003_PostfixToInfix {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(postfixToInfix("abc++"));
-		System.out.println(postfixToInfix("ab*c+"));
+		System.out.println(postfixToInfix("abc++")); // (a+(b+c))
+		System.out.println(postfixToInfix("ab*c+")); // ((a*b)+c)
 	}
 
 }

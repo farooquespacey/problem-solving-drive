@@ -53,8 +53,8 @@ public class _001_InfixToPostfix {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(infixToPostfix("a+(b-c*d)/e"));
-		System.out.println(infixToPostfix("(a+b*c+d)"));
+		System.out.println(infixToPostfix("a+(b-c*d)/e")); // abcd*-e/+
+		System.out.println(infixToPostfix("(a+b*c+d)")); // abc*+d+
 	}
 
 }

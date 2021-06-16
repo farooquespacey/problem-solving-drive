@@ -25,8 +25,8 @@ public class _005_PrefixToPostfix {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(prefixToPostfix("*+AB-CD"));
-		System.out.println(prefixToPostfix("*-A/BC-/AKL"));
+		System.out.println(prefixToPostfix("*+AB-CD")); // AB+CD-*
+		System.out.println(prefixToPostfix("*-A/BC-/AKL")); // ABC/-AK/L-*
 	}
 
 }

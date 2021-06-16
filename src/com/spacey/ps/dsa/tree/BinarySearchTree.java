@@ -144,33 +144,29 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 	// left, right , root
 	private Iterator<T> postOrderTraversal() {
-		System.out.println("PostOrder Traversal");
-		Stack<Node<T>> stack1 = new Stack<>();
-		Stack<Node<T>> stack2 = new Stack<>();
-
-		stack1.push(root);
-
-		while (!stack1.empty()) {
-			Node<T> node = stack1.pop();
-			if (node != null) {
-				stack2.push(node);
-				if (node.left != null)
-					stack1.push(node.left);
-				if (node.right != null)
-					stack1.push(node.right);
+		Stack<Node<T>> primary = new Stack<>();
+		Stack<Node<T>> temporary = new Stack<>();
+		temporary.add(root);
+		while(!temporary.isEmpty()) {
+			Node<T> curr = temporary.pop();
+			if(curr != null) {
+				if(curr.left != null) temporary.add(curr.left);
+				if(curr.right != null) temporary.add(curr.right);
 			}
+			primary.add(curr);
 		}
-
 		return new Iterator<T>() {
+
 			@Override
 			public boolean hasNext() {
-				return root != null && !stack2.isEmpty();
+				return root != null && !primary.isEmpty();
 			}
 
 			@Override
 			public T next() {
-				return stack2.pop().data;
+				return primary.pop().data;
 			}
+
 		};
 	}
 

@@ -67,6 +67,47 @@ public class AVLTree<T extends Comparable<T>> {
 		return balanced(node);
 	}
 
+	public boolean remove(T element) {
+		if (contains(element)) {
+			root = remove(root, element);
+			nodeCount--;
+			return true;
+		}
+		return false;
+	}
+
+	private Node<T> remove(Node<T> node, T element) {
+		if (node == null)
+			return null;
+		int compared = node.data.compareTo(element);
+		if (compared < 0) {
+			node.right = remove(node.right, element);
+		} else if (compared > 0) {
+			node.left = remove(node.left, element);
+		} else {
+			if (node.left == null) {
+				// direct return without update()/balanced() call because:
+				// case 1: "node.right is also null" -> then nothing changes in the height/bf
+				// plus if you call it anyway you have to especially handle nulls in both
+				// update() and balanced() method which would become an additional step.
+				// case 2: "node.right is a subtree" -> since we made no changes in node.right
+				// structure, calling update(node.right)/balanced(node.right) would not change a
+				// thing.
+				return node.right;
+			} else if (node.right == null) {
+				// direct return without update()/balanced() -- same reason as above
+				return node.left;
+			} else {
+				// if both the child are present
+				Node<T> rightMinNode = findMinNode(node.right);
+				node.data = rightMinNode.data;
+				node.right = remove(node.right, rightMinNode.data);
+			}
+		}
+		update(node);
+		return balanced(node);
+	}
+
 	private void update(Node<T> node) {
 		int lH = -1;
 		int rH = -1;
@@ -88,6 +129,7 @@ public class AVLTree<T extends Comparable<T>> {
 	private Node<T> balanced(Node<T> node) {
 		// left heavy subtree
 		if (node.balancedFactor == -2) {
+			// <=0 because there is a possibility of left child having both the children.
 			if (node.left.balancedFactor <= 0) {
 				return leftLeftCase(node);
 			} else {
@@ -96,6 +138,7 @@ public class AVLTree<T extends Comparable<T>> {
 		}
 		// right heavy subtree
 		else if (node.balancedFactor == 2) {
+			// >=0 because there is a possibility of right child having both the children.
 			if (node.right.balancedFactor >= 0) {
 				return rightRightCase(node);
 			} else {
@@ -144,40 +187,8 @@ public class AVLTree<T extends Comparable<T>> {
 		return nodeRight;
 	}
 
-	public boolean remove(T element) {
-		if (contains(element)) {
-			root = remove(root, element);
-			nodeCount--;
-			return true;
-		}
-		return false;
-	}
-
-	private Node<T> remove(Node<T> node, T element) {
-		if(node == null) return null;
-		int compared = node.data.compareTo(element);
-		if (compared < 0) {
-			node.right = remove(node.right, element);
-		} else if (compared > 0) {
-			node.left = remove(node.left, element);
-		} else {
-			if (node.left == null) {
-				return node.right;
-			} else if (node.right == null) {
-				return node.left;
-			} else {
-				// if both the child are present
-				Node<T> rightMinNode = findMinNode(node.right);
-				node.data = rightMinNode.data;
-				node.right = remove(node.right, rightMinNode.data);
-			}
-		}
-		update(node);
-		return balanced(node);
-	}
-
 	private Node<T> findMinNode(Node<T> node) {
-		while(node.left != null) {
+		while (node.left != null) {
 			node = node.left;
 		}
 		return node;
@@ -195,7 +206,7 @@ public class AVLTree<T extends Comparable<T>> {
 		avlTree.remove(6);
 		avlTree.remove(5);
 		avlTree.remove(7);
-		System.out.println(avlTree.root.right.left.data);
+		System.out.println(avlTree.root.data);
 	}
 
 }

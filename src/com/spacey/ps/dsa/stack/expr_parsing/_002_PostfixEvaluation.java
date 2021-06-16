@@ -23,7 +23,7 @@ public class _002_PostfixEvaluation {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(evaluate("123*+4-"));
+		System.out.println(evaluate("123*+4-")); // (((2*3)+1)-4) === 3
 	}
 
 }
