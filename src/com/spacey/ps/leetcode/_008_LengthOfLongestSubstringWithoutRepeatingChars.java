@@ -14,27 +14,26 @@ public class _008_LengthOfLongestSubstringWithoutRepeatingChars {
 		int res = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = i; j < n; j++) {
-				if (checkRepetition(s, i, j)) {
-					res = Math.max(res, j - i + 1);
-				}
+				if (repeats(s, i, j)) break;
+				res = Math.max(res, j - i + 1);
 			}
 		}
 
 		return res;
 	}
 
-	static boolean checkRepetition(String s, int start, int end) {
+	static boolean repeats(String s, int start, int end) {
 		int[] chars = new int[128];
 
 		for (int i = start; i <= end; i++) {
 			char c = s.charAt(i);
 			chars[c]++;
 			if (chars[c] > 1) {
-				return false;
+				return true;
 			}
 		}
 
-		return true;
+		return false;
 	}
 
 	static int lengthOfLongestSubstringSlidingWindow(String s) {
@@ -117,8 +116,12 @@ public class _008_LengthOfLongestSubstringWithoutRepeatingChars {
 	}
 
 	public static void main(String[] args) {
+		System.out.println(lengthOfLongestSubstringBruteForce("aabaab!bb"));
+		System.out.println(lengthOfLongestSubstringBruteForce(" "));
+		System.out.println(lengthOfLongestSubstringBruteForce("ababca"));
 		System.out.println(lengthOfLongestSubstringSlidingWindowOptimized("aabaab!bb"));
 		System.out.println(lengthOfLongestSubstringSlidingWindowOptimized(" "));
+		System.out.println(lengthOfLongestSubstringSlidingWindowOptimized("ababca"));
 		System.out.println(lengthOfLongestSubstringMyTry2("aabaab!bb"));
 		System.out.println(lengthOfLongestSubstringMyTry2(" "));
 		System.out.println(lengthOfLongestSubstringMyTry2("ababca"));

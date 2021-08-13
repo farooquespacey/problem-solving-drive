@@ -45,6 +45,33 @@ import java.util.Map;
  *
  */
 public class _012_PalindromePairs {
+	static List<List<Integer>> palindromePairsTryTest(String[] words) {
+		Map<String, Integer> wordToPos = new HashMap<>();
+		for (int i = 0; i < words.length; i++) {
+			wordToPos.put(words[i], i);
+		}
+		List<List<Integer>> result = new ArrayList<>();
+		for (int i = 0; i < words.length; i++) {
+			String word = words[i];
+			for (int j = 0; j < word.length(); j++) {
+				String str1 = word.substring(0, j);
+				String str2 = word.substring(j);
+				if(isPalindrome(str1)) {
+					String str2Rev = new StringBuilder(str2).reverse().toString();
+					if(wordToPos.containsKey(str2Rev)) {
+						result.add(Arrays.asList(wordToPos.get(str2Rev), i));
+					}
+				}
+				if(isPalindrome(str2)) {
+					String str1Rev = new StringBuilder(str1).reverse().toString();
+					if(wordToPos.containsKey(str1Rev)) {
+						result.add(Arrays.asList(i, wordToPos.get(str1Rev)));
+					}
+				}
+			}
+		}
+		return result;
+	}
 
 	// https://medium.com/@harycane/palindrome-pairs-46c5b8511397
 	static List<List<Integer>> palindromePairsTry2(String[] words) {

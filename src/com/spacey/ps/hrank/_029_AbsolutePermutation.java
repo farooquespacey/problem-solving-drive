@@ -8,6 +8,12 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
+/**
+ * https://www.hackerrank.com/challenges/absolute-permutation/problem
+ * 
+ * @author Spacey4uq
+ *
+ */
 public class _029_AbsolutePermutation {
 
 	// Complete the absolutePermutation function below.
@@ -26,9 +32,9 @@ public class _029_AbsolutePermutation {
 			for (int i = 0; i < n; i++) {
 				int n1 = i % (k * 2);
 				if (n1 < k) {
-					newN[i] = (i+1) + k;
+					newN[i] = (i + 1) + k;
 				} else {
-					newN[i] = (i+1) - k;
+					newN[i] = (i + 1) - k;
 				}
 			}
 			return newN;

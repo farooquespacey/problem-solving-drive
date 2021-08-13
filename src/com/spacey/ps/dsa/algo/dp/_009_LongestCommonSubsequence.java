@@ -5,6 +5,21 @@ import java.util.Map;
 
 public class _009_LongestCommonSubsequence {
 
+	static String lcsNaiveRecursive(String X, String Y) {
+		if(X.length() == 0 || Y.length() == 0) {
+			return "";
+		}
+		int m = X.length() - 1, n = Y.length() - 1;
+		if(X.charAt(m) == Y.charAt(n)) {
+			return lcsNaiveRecursive(X.substring(0, m), Y.substring(0, n)) + X.charAt(m);
+		} else {
+			String left = lcsNaiveRecursive(X, Y.substring(0, n));
+			String right = lcsNaiveRecursive(X.substring(0, m), Y);
+			return right.length() > left.length() ? right : left; 
+		}
+	}
+	
+	
 	static String lcsMemoized(String X, String Y) {
 		return lcs(X, Y, new HashMap<>());
 	}
@@ -12,7 +27,7 @@ public class _009_LongestCommonSubsequence {
 	// gets the output string
 	static String lcs(String X, String Y, Map<String, String> memo) {
 		if (memo.containsKey(X + "," + Y)) {
-			System.out.println("Contained: " + (X + "," + Y));
+//			System.out.println("Contained: " + (X + "," + Y));
 			return memo.get(X + "," + Y);
 		}
 		if (X.length() == 0 || Y.length() == 0)
@@ -50,6 +65,7 @@ public class _009_LongestCommonSubsequence {
 //	}
 
 	public static void main(String[] args) {
+		System.out.println(lcsNaiveRecursive("AGGTAB", "GXTXAYB"));
 		System.out.println(lcsMemoized("AGGTAB", "GXTXAYB"));
 	}
 

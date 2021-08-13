@@ -59,6 +59,18 @@ public class _01_StringTest {
 		findsubsequences(s.substring(1), ans);
 	}
 
+	// Method 1: Pick and Don't Pick Concept (change of style)
+	private static void findsubsequencesLoopStyle(String s, String ans) {
+		if (s.length() == 0) {
+			System.out.print(ans + ", ");
+			return;
+		}
+		for (int i = 0; i < s.length(); i++) {
+			// We are adding 1st character in string
+			findsubsequences(s.substring(i + 1), ans + s.charAt(i));
+		}
+	}
+
 	// Method 1: Substrings with no recursion
 	public static void substringsNoRecursion(String word) {
 		for (int from = 0; from < word.length(); from++) {
@@ -177,6 +189,8 @@ public class _01_StringTest {
 		int n = inp.length();
 		// 1. subsequence ex:- i/p - "abc" o/p - a,b,c,ab,ac,bc,abc
 		findsubsequences(inp, "");
+		System.out.println("\n----------------------------------------");
+		findsubsequencesLoopStyle(inp, "");
 		System.out.println("\n----------------------------------------");
 		subsequence(inp);
 		System.out.println(st);

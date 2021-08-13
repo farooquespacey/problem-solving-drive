@@ -22,7 +22,11 @@ class Tree_HeightOfBinTree {
 	 */
 	public static int height(Node root) {
 		// Write your code here.
-		return root.data;
+		if(root == null) return 0;
+		int lH = 0, rH = 0;
+		if(root.left != null) lH = 1 + height(root.left);
+		if(root.right != null) rH = 1 + height(root.right);
+		return Math.max(lH, rH);
 	}
 
 	public static Node insert(Node root, int data) {

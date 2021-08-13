@@ -84,9 +84,10 @@ public class _014_DistinctSubsequences {
 			return (ans.equals(t)) ? 1 : 0;
 		int times = 0;
 		char ch = s.charAt(0);
-		if (ans.length() <= t.length() && t.startsWith(ans + ch))
+		if (ans.length() <= t.length() && t.startsWith(ans)) {
 			times += findSubsequence(s.substring(1), ans + ch, t);
-		times += findSubsequence(s.substring(1), ans, t);
+			times += findSubsequence(s.substring(1), ans, t);
+		}
 		return times;
 	}
 
@@ -120,6 +121,9 @@ public class _014_DistinctSubsequences {
 
 		System.out.println(numDistinct("babgbag", "bag"));
 		System.out.println(numDistinct("bccbcdcabadabddbccaddcbabbaaacdba", "bccbbdc"));
+		System.out.println(numDistinct(
+				"aabdbaabeeadcbbdedacbbeecbabebaeeecaeabaedadcbdbcdaabebdadbbaeabdadeaabbabbecebbebcaddaacccebeaeedababedeacdeaaaeeaecbe",
+				"bddabdcae"));
 		System.out.println(numDistinctTabulated("bccbcdcabadabddbccaddcbabbaaacdba", "bccbbdc"));
 
 		System.out.println(numDistinctTabulated(

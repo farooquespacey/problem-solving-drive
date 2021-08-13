@@ -36,12 +36,12 @@ public class _02_TreeTest {
 //        return node.data;
 	}
 
-	public static Node insertLevelOrder(int a[], Node node, int i) {
-		if (i < a.length) {
-			Node tmp = new Node(a[i]);
+	public static Node insertLevelOrder(int src[], Node node, int i) {
+		if (i < src.length) {
+			Node tmp = new Node(src[i]);
 			node = tmp;
-			node.left = insertLevelOrder(a, node.left, 2 * i + 1);
-			node.right = insertLevelOrder(a, node.right, 2 * i + 2);
+			node.left = insertLevelOrder(src, node.left, 2 * i + 1);
+			node.right = insertLevelOrder(src, node.right, 2 * i + 2);
 		}
 		return node;
 	}
@@ -144,11 +144,11 @@ public class _02_TreeTest {
 //		}
 	}
 
-	private static boolean check(Node root, int minValue, int maxValue) {
-		if (root == null)
+	private static boolean check(Node node, int minValue, int maxValue) {
+		if (node == null)
 			return true;
-		return minValue < root.data && root.data < maxValue && check(root.left, minValue, root.data)
-				&& check(root.right, root.data, maxValue);
+		return minValue < node.data && node.data < maxValue && check(node.left, minValue, node.data)
+				&& check(node.right, node.data, maxValue);
 	}
 
 	public static Node lca(Node root, int v1, int v2) {

@@ -1,7 +1,10 @@
 package com.spacey.ps.leetcode;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -33,53 +36,24 @@ import java.util.Stack;
 public class _001_LongestSubstringOfAllVowelsInOrder {
 
 	public static int longestBeautifulSubstring(String word) {
-		Stack<Character> vow = new Stack<Character>();
-		Set<Integer> lengthsRecorded = new HashSet<>();
-		for (int i = 0; i < word.length(); i++) {
-			char c = word.charAt(i);
-			switch (c) {
-			case 'a':
-				if (!vow.empty() && vow.peek() != 'a') {
-					vow.clear();
-				}
-				vow.push(c);
-				break;
-			case 'e':
-				if (!vow.empty() && (vow.peek() == 'a' || vow.peek() == 'e')) {
-					vow.push(c);
-				} else {
-					vow.clear();
-				}
-				break;
-			case 'i':
-				if (!vow.empty() && (vow.peek() == 'e' || vow.peek() == 'i')) {
-					vow.push(c);
-				} else {
-					vow.clear();
-				}
-				break;
-			case 'o':
-				if (!vow.empty() && (vow.peek() == 'i' || vow.peek() == 'o')) {
-					vow.push(c);
-				} else {
-					vow.clear();
-				}
-				break;
-			case 'u':
-				if (!vow.empty() && (vow.peek() == 'o' || vow.peek() == 'u')) {
-					vow.push(c);
-					lengthsRecorded.add(vow.size());
-				} else {
-					vow.clear();
-				}
-				break;
+		int longest = 0;
+		Set<Character> vow = new HashSet<>();
+		for (int lo = -1, hi = 0; hi < word.length(); hi++) {
+			if(hi > 0 && word.charAt(hi - 1) > word.charAt(hi)) {
+				vow = new HashSet<>();
+				lo = hi - 1;
+			}
+			vow.add(word.charAt(hi));
+			if(vow.size() == 5) {
+				longest = Math.max(longest, hi - lo);
 			}
 		}
-		return lengthsRecorded.size() > 0 ? Collections.max(lengthsRecorded) : 0;
+		return longest;
 	}
 
 	public static void main(String[] args) {
 		System.out.println(longestBeautifulSubstring("iaeoooeuuaaaeiiioooouuuaeeeooiiuuu"));
+		System.out.println(longestBeautifulSubstring("aaaaaaeiiiioou"));
 	}
 
 }

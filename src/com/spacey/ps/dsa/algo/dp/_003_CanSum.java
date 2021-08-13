@@ -12,8 +12,7 @@ public class _003_CanSum {
 		if (target < 0)
 			return false;
 		for (int i = 0; i < numbers.length; i++) {
-			if (canSum(target - numbers[i], Arrays.copyOfRange(numbers, i + 1, numbers.length))
-					|| canSum(target, Arrays.copyOfRange(numbers, i + 1, numbers.length)))
+			if (canSumWithNoNumReuse(target - numbers[i], Arrays.copyOfRange(numbers, i + 1, numbers.length)))
 				return true;
 		}
 		return false;

@@ -32,8 +32,7 @@ public class _005_BubbleSort {
 
 			// IF no two elements were
 			// swapped by inner loop, then break
-			if (swapped == false)
-				break;
+			if (!swapped) break;
 		}
 		return arr;
 	}

@@ -90,6 +90,8 @@ public class _011_ShortestPalindromeByAddingCharsToLeft {
 	}
 
 	public static void main(String[] args) {
+		// cbabca
+		// acbabc
 		System.out.println(shortestPalindromeMyTry("abcd"));
 		System.out.println(shortestPalindromeMyTry("abcde"));
 		System.out.println(shortestPalindromeMyTry("cbabcab"));

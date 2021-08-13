@@ -26,14 +26,14 @@ import com.spacey.ps.dsa.Utils;
 public class _002_InsertionSort {
 
 	private static int[] selectionSort(int[] inp) {
-		for (int i = 1; i < inp.length; i++) {
-			int j = i - 1;
-			int curr = inp[i];
-			while (j >= 0 && curr < inp[j]) {
-				inp[j + 1] = inp[j];
-				j--;
+		for (int currIdx = 1; currIdx < inp.length; currIdx++) {
+			int prevIdx = currIdx - 1;
+			int curr = inp[currIdx];
+			while (prevIdx >= 0 && curr < inp[prevIdx]) {
+				inp[prevIdx + 1] = inp[prevIdx];
+				prevIdx--;
 			}
-			inp[j + 1] = curr;
+			inp[prevIdx + 1] = curr;
 		}
 		return inp;
 	}

@@ -30,8 +30,11 @@ public class DynamicArray<T> implements Iterable<T> {
 		return arr[index];
 	}
 
+	// TODO: make sure enough capacity exists before setting
 	public void set(int index, T elem) {
+		ensureEnoughCapacity();
 		arr[index] = elem;
+		len++;
 	}
 
 	public void clear() {
@@ -43,6 +46,12 @@ public class DynamicArray<T> implements Iterable<T> {
 	public void add(T elem) {
 
 		// Time to resize!
+		ensureEnoughCapacity();
+
+		arr[len++] = elem;
+	}
+
+	private void ensureEnoughCapacity() {
 		if (len + 1 >= capacity) {
 			if (capacity == 0)
 				capacity = 1;
@@ -53,8 +62,6 @@ public class DynamicArray<T> implements Iterable<T> {
 				new_arr[i] = arr[i];
 			arr = new_arr; // arr has extra nulls padded
 		}
-
-		arr[len++] = elem;
 	}
 
 	// Removes an element at the specified index in this array.
@@ -131,5 +138,13 @@ public class DynamicArray<T> implements Iterable<T> {
 				sb.append(arr[i] + ", ");
 			return sb.append(arr[len - 1] + "]").toString();
 		}
+	}
+	
+	public static void main(String... args) {
+		DynamicArray<String> arr = new DynamicArray<String>(1);
+		arr.set(0, "a");
+		arr.set(1, "b");
+		arr.set(2, "c");
+		System.out.println(arr.get(2));
 	}
 }
