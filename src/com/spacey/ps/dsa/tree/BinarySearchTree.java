@@ -257,6 +257,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return result;
 	}
 
+	// O(n) <OR> O(2^h) where 'n' is the number of nodes and 'h' is the height of a tree
 	private static <T> void inOrderTraversedRecursively(Node<T> root, List<T> list) {
 		if (root != null) {
 			inOrderTraversedRecursively(root.left, list);

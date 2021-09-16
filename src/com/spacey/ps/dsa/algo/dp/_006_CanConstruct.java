@@ -1,5 +1,6 @@
 package com.spacey.ps.dsa.algo.dp;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,21 @@ public class _006_CanConstruct {
 				String suffix = target.substring(word.length());
 				if (canConstruct(suffix, wordBank))
 					return true;
+			}
+		}
+		return false;
+	}
+	
+	static boolean canConstructNoReuse(String target, String[] wordBank) {
+		if (target.isEmpty())
+			return true;
+		for (int i = 0; i < wordBank.length; i++) {
+			String curr = wordBank[i];
+			if(target.startsWith(curr)) {
+				String suffix = target.substring(curr.length());
+				if(canConstructNoReuse(suffix, Arrays.stream(wordBank).filter(e -> e != curr).toArray(String[]::new))) {
+					return true;
+				}
 			}
 		}
 		return false;

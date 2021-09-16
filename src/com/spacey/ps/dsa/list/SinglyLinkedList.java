@@ -64,5 +64,48 @@ class SinglyLinkedList<T> {
 
 		// Displays the nodes present in the list
 		sList.display();
+		
+		System.out.println("After reversal...");
+		System.out.println("i) iterative approach: ");
+		sList.reverseIteratively();
+		sList.display();
+		System.out.println("ii) recursive approach: ");
+		Node<Integer> newHead = sList.reverseRecursively(sList.head);
+		while(newHead != null) {
+			System.out.print(newHead.data + " ");
+			newHead = newHead.next;
+		}
+		System.out.println();
+	}
+
+	private Node<T> reverseRecursively(Node<T> node) {
+		if(node == null || node.next == null) return node;
+		Node<T> rest = reverseRecursively(node.next);
+		node.next.next = node;
+		node.next = null;
+		return rest;
+	}
+
+//	private Node<T> reverseRecursivelyMyTry(Node<T> node) {
+//		if(node == null || node.next == null) {
+//			head = node;
+//			return node;
+//		}
+//		Node<T> rest = reverseRecursivelyMyTry(node.next);
+//		node.next = null;
+//		rest.next = node;
+//		return rest.next;
+//	}
+
+	private void reverseIteratively() {
+		Node<T> curr = head;
+		Node<T> prev = null, next = null;
+		while(curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		head = prev;
 	}
 }

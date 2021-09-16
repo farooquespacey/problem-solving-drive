@@ -1,5 +1,7 @@
 package com.spacey.ps.test;
 
+import java.math.BigInteger;
+
 public class _02_TreeTest {
 
 	static class Node {
@@ -185,6 +187,53 @@ public class _02_TreeTest {
 		/* If we reach here then tree is not height-balanced */
 		return false;
 	}
+	
+	static Node getMirrorOfBinaryTree(Node root) {
+		swapChildren(root);
+		return root;
+	}
+
+	private static void swapChildren(Node root) {
+		if(root != null) {
+			Node tmp = root.left;
+			root.left = root.right;
+			root.right = tmp;
+			swapChildren(root.left);
+			swapChildren(root.right);
+		}
+	}
+	
+	static class MyInteger {
+		int val;
+		MyInteger(int val){
+			this.val = val;
+		}
+		
+		public void inc() {
+			val++;
+		}
+	}
+
+	static int countNumOfSubtreesWithinRange(Node node, int low, int hi) {
+		MyInteger count = new MyInteger(0);
+		countNumOfSubtreesWithinRange(node, low, hi, count);
+		return count.val;
+	}
+	
+	private static boolean countNumOfSubtreesWithinRange(Node node, int low, int hi, MyInteger count) {
+		if(node == null) return true;
+		boolean left = countNumOfSubtreesWithinRange(node.left, low, hi, count);
+		boolean right = countNumOfSubtreesWithinRange(node.right, low, hi, count);
+		if(left && right && inRange(node, low, hi)) {
+			count.inc();
+			return true;
+		}
+		return false;
+	}
+	
+	static boolean inRange(Node node, int low, int high) {
+        return node.data >= low && node.data <= high;
+    }
 
 	public static void main(String[] args) {
 		Node root = null;
@@ -206,6 +255,10 @@ public class _02_TreeTest {
 		System.out.print("BFS: ");
 		BFS(root);
 		System.out.println();
+		getMirrorOfBinaryTree(root);
+		System.out.print("BFS after mirroring: ");
+		BFS(root);
+		System.out.println();
 //
 		System.out.print("ZigZag: ");
 		ZigZag(root);
@@ -217,6 +270,10 @@ public class _02_TreeTest {
 		inOrderTraversal(root);
 
 		System.out.println("\nIs Balanced Tree? " + isBalanced(root));
+		
+		array = new int[]{ 10, 8, 15, 7, 9, 13, 16 };
+		root = insertLevelOrder(array, root, 0);
+		System.out.println("Number of Subtrees within range: " + countNumOfSubtreesWithinRange(root, 7, 13));
 	}
 
 }

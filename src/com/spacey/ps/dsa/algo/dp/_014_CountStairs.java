@@ -47,8 +47,8 @@ public class _014_CountStairs {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(countStairs(47));
-		System.out.println(countStairsMemoized(47));
+		System.out.println(countStairs(477));
+//		System.out.println(countStairsMemoized(477));
 	}
 
 }
