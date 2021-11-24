@@ -138,7 +138,9 @@ public class _00_LanguageTips {
 		System.out.println("> thread behavior");
 		Thread runnable = getThreadFromLambda();
 		System.out.println(runnable);
+		System.out.println("thread run()");
 		runnable.run();
+		System.out.println("thread start()");
 		runnable.start();
 		System.out.println("=========================================");
 	}

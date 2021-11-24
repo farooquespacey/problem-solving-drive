@@ -3,6 +3,7 @@ package com.spacey.ps.test;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -60,16 +61,27 @@ public class _01_StringTest {
 	}
 
 	// Method 1: Pick and Don't Pick Concept (change of style)
+	// Doesn't work
 	private static void findsubsequencesLoopStyle(String s, String ans) {
 		if (s.length() == 0) {
-			System.out.print(ans + ", ");
+			System.out.print(ans + ",, ");
 			return;
 		}
 		for (int i = 0; i < s.length(); i++) {
 			// We are adding 1st character in string
-			findsubsequences(s.substring(i + 1), ans + s.charAt(i));
+			findsubsequencesLoopStyle(s.substring(i + 1), ans + s.charAt(i));
 		}
 	}
+	
+	private static void findSubsequencesForArray(String[] inp, String ans) {
+		if(inp.length == 0) {
+			System.out.print(ans + ", ");
+			return;
+		}
+		findSubsequencesForArray(Arrays.copyOfRange(inp, 1, inp.length), ans + inp[0]);
+		findSubsequencesForArray(Arrays.copyOfRange(inp, 1, inp.length), ans);
+	}
+	
 
 	// Method 1: Substrings with no recursion
 	public static void substringsNoRecursion(String word) {
@@ -216,7 +228,9 @@ public class _01_StringTest {
 		permutationType2(3, "");
 		System.out.println();
 		System.out.println(setOfPermutatedWord);
-
+		System.out.println("\n========================================");
+		findSubsequencesForArray(new String[] {"a", "b", "c"}, "");
+		System.out.println("\n========================================");
 	}
 
 }
