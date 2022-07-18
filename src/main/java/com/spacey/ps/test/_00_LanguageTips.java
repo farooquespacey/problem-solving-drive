@@ -7,12 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,9 +39,23 @@ public class _00_LanguageTips {
 		threadBehavior();
 		regexMatching();
 		streamUsecases();
-		basicRestConnection_Get();
+//		basicRestConnection_Get();
 //		basicRestConnection_Post();
 		retainLargestEntriesInHashMap();
+		checkIfHashMapValuesAreReference();
+	}
+
+	private static void checkIfHashMapValuesAreReference() {
+		System.out.println("> write something");
+		Map<String, String> constantMap = new HashMap<>();
+		constantMap.put("A", "Apps");
+		constantMap.put("B", "Backend");
+		System.out.println("map original: " + constantMap);
+		Collection<String> vals = constantMap.values();
+		vals.remove("Apps");
+		System.out.println("vals after mod: " + vals);
+		System.out.println("map after mod: " + constantMap);
+		System.out.println("=========================================");
 	}
 
 	private static void retainLargestEntriesInHashMap() {
@@ -87,11 +96,13 @@ public class _00_LanguageTips {
 			}
 		}
 		System.out.println("> stream usecases");
-		Comparator.comparing(Employee::getName);
-		List<Employee> emps = Arrays.asList(new Employee(1, 40, "spacey"), new Employee(2, 35, "zack"));
+		List<Employee> emps = Arrays.asList(new Employee(1, 40, "spacey"),
+											new Employee(2, 35, "zack"),
+											new Employee(3, 25, "johny"));
 		// list of employees who are older than 30, sorted by name desc, resulting their
 		// ids.
-		List<Integer> out = emps.stream().filter(e -> e.age > 30).sorted(Comparator.comparing(Employee::getName, (a, b) -> b.compareTo(a)))
+		List<Integer> out = emps.stream().filter(e -> e.age > 30)
+				.sorted(Comparator.comparing(Employee::getName, Comparator.reverseOrder()))
 				.map(e -> e.id).collect(Collectors.toList());
 		System.out.println("Emps: " + out);
 		System.out.println("=========================================");

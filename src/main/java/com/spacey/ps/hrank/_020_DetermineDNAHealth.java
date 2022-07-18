@@ -8,8 +8,6 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 public class _020_DetermineDNAHealth {
 
 	private static final Scanner scanner = new Scanner(System.in);
