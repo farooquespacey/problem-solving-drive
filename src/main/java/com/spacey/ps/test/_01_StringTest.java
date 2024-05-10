@@ -168,16 +168,13 @@ public class _01_StringTest {
 		stringWithDivision(inp.substring(1), first + ",");
 	}
 
-	private static void consecutiveBins(int k, String prev) {
-		String next0 = prev + "0";
-		String next1 = prev + "1";
-		if (k == 1) {
-			System.out.print(next0 + ", ");
-			System.out.print(next1 + ", ");
-		} else {
-			consecutiveBins(k - 1, next0);
-			consecutiveBins(k - 1, next1);
+	private static void consecutiveBins(int n, String prev) {
+		if (n == 0) {
+			System.out.print(prev + "; ");
+			return;
 		}
+		consecutiveBins(n-1, prev + "0");
+		consecutiveBins(n-1, prev + "1");
 	}
 
 	private static int findMaxPalindromeSubsequence(String s, String ans) {
@@ -223,7 +220,7 @@ public class _01_StringTest {
 		System.out.println("\n========================================");
 		System.out.println(findMaxPalindromeSubsequence("BBABCBCAB"));
 		System.out.println("\n========================================");
-		permutationType2(3, "");
+//		permutationType2(3, "");
 		System.out.println();
 		System.out.println(setOfPermutatedWord);
 		System.out.println("\n========================================");

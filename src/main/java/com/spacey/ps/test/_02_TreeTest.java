@@ -1,7 +1,5 @@
 package com.spacey.ps.test;
 
-import java.math.BigInteger;
-
 public class _02_TreeTest {
 
 	static class Node {
@@ -89,26 +87,26 @@ public class _02_TreeTest {
 		}
 	}
 
-	public static void ZigZag(Node root) {
-		for (int i = 1; i <= height(root) + 1; i++) {
-			printInZigZag(root, i);
+	private static void printInZigZag(Node node, int height, boolean left) {
+		if (node == null) return;
+		if (height == 1) {
+			System.out.print(node.data + " ");
+			return;
+		}
+		if (left) {
+			printInZigZag(node.left, height - 1, true);
+			printInZigZag(node.right, height - 1, true);
+		} else {
+			printInZigZag(node.right, height - 1, false);
+			printInZigZag(node.left, height - 1, false);
 		}
 	}
 
-	private static void printInZigZag(Node root, int level) {
-		if (root == null)
-			return;
-		if (level == 1) {
-			System.out.print(root.data + " ");
-		} else {
-			if (level % 2 == 0) {
-				printGivenLevel(root.right, level - 1);
-				printGivenLevel(root.left, level - 1);
-			} else {
-				printGivenLevel(root.left, level - 1);
-				printGivenLevel(root.right, level - 1);
-			}
-
+	private static void ZigZag(Node node) {
+		boolean left = true;
+		for (int i=1; i<=height2(node); i++) {
+			printInZigZag(node, i, left);
+			left = !left;
 		}
 	}
 
@@ -125,6 +123,18 @@ public class _02_TreeTest {
 			rightHeight = 1 + height(root.right);
 		}
 		return Math.max(leftHeight, rightHeight);
+	}
+
+	private static int height2(Node node) {
+		if (node == null)
+			return 0;
+
+		int lH = 1, rH = 1;
+		if (node.left != null)
+			lH += height2(node.left);
+		if (node.right != null)
+			rH += height2(node.right);
+		return Math.max(lH, rH);
 	}
 
 	private static boolean checkBST(Node root) {
@@ -241,17 +251,19 @@ public class _02_TreeTest {
 //		int[] array = { 10, 6, 18, 4, 8, 15, 21 };
 
 		root = insertLevelOrder(array, root, 0);
-//		System.out.println(root.data + ":" + root.left.data + ":" + root.right.data);
+		//	    	 1
+		//     2 	     3
+		//   4    5    6     7
+		// 8   9
 
-//		mapValues(root);
 		inOrderTraversal(root);
 		System.out.println();
 		preOrderTraversal(root);
 		System.out.println();
 		postOrderTraversal(root);
 		System.out.println();
-//
-		System.out.println("Height: " + height(root));
+
+		System.out.println("Height: " + height2(root));
 		System.out.print("BFS: ");
 		BFS(root);
 		System.out.println();
@@ -259,15 +271,15 @@ public class _02_TreeTest {
 		System.out.print("BFS after mirroring: ");
 		BFS(root);
 		System.out.println();
-//
+
 		System.out.print("ZigZag: ");
 		ZigZag(root);
 		System.out.println();
-//
+
 		System.out.println("Is BST? " + checkBST(root));
 
 		sumOfLeftSubtreePlusCurrNode(root);
-		inOrderTraversal(root);
+		BFS(root);
 
 		System.out.println("\nIs Balanced Tree? " + isBalanced(root));
 		
@@ -275,5 +287,4 @@ public class _02_TreeTest {
 		root = insertLevelOrder(array, root, 0);
 		System.out.println("Number of Subtrees within range: " + countNumOfSubtreesWithinRange(root, 7, 13));
 	}
-
 }

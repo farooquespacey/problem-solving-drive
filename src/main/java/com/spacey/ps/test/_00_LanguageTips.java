@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -17,6 +16,8 @@ import java.util.stream.StreamSupport;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * This class is designed to help developers understand some of the lesser known
@@ -43,6 +44,130 @@ public class _00_LanguageTips {
 //		basicRestConnection_Post();
 		retainLargestEntriesInHashMap();
 		checkIfHashMapValuesAreReference();
+		treeMapExcercise();
+		testAssertKeyword();
+		testJsonParser();
+	}
+
+	private static void testJsonParser() {
+		JSONParser parser = new JSONParser();
+		try {
+			org.json.simple.JSONObject json = (org.json.simple.JSONObject) parser.parse("{\"new\":[\"old\"]}");
+//			System.out.println(json.size());
+			for (Object s: json.keySet()){
+				if (!(s instanceof String) || !(json.get(s) instanceof org.json.simple.JSONArray)) {
+					throw new IllegalArgumentException("Nope2");
+				}
+			}
+			Set<String> keys = json.keySet();
+			for (Object k: json.keySet()){
+				org.json.simple.JSONArray arr = (org.json.simple.JSONArray) json.get(k);
+				for (Object ob: arr) {
+					System.out.println("Ob: " + ob);
+				}
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();;
+		}
+	}
+
+
+	private static void testAssertKeyword(){
+		String a = getNull();
+		assert a != null;
+
+		System.out.println("111");
+		try {
+			System.out.println(a.length());	
+		} catch (Exception e) {
+			System.out.println("was expecting assert command to notify that its null");
+		}
+		
+	}
+
+	private static String getNull(){
+		return null;
+	}
+
+	private static void treeMapExcercise() {
+		class Employee {
+			int id1;
+			int id2;
+			String name;
+			Employee(int i, int j, String n) {
+				this.id1 = i;
+				this.id2 = j;
+				this.name = n;
+			}
+			@Override
+			public boolean equals(Object o) {
+				if (o == this)
+					return true;
+				if (!(o instanceof Employee))
+					return false;
+				Employee em = (Employee) o;
+				return em.id1 == id1 && em.id2 == id2 && em.name.equals(name);
+			}
+			@Override
+			public int hashCode() {
+				int result = Integer.hashCode(id1);
+				result = 31 * result + Integer.hashCode(id2);
+				result = 31 * result + name.hashCode();
+				return result;
+			}
+
+			@Override
+			public String toString() {
+				return "Employee{" +
+						"id1=" + id1 +
+						", id2=" + id2 +
+						", name='" + name + '\'' +
+						'}';
+			}
+		}
+		Set<Employee> s1 = new HashSet<>();
+		Employee e1 = new Employee(1,1,"Farooque");
+		Employee e2 = new Employee(2,3,"Farooque");
+		Employee e3 = new Employee(3,2,"Farooque");
+		s1.add(e1);
+		s1.add(e2);
+		s1.add(e3);
+		System.out.println(s1);
+		Comparator<Employee> comparer = Comparator.comparingInt((Employee e) -> {
+//					System.out.println("CompareTo Check..." + e.id1);
+					return e.id2;
+				})
+				.thenComparing(e -> e.name)
+				.thenComparingInt(e -> e.id1);
+		System.out.println(comparer.compare(e1, e2));
+		System.out.println(comparer.compare(e2, e3));
+		TreeSet<Employee> treeSet = new TreeSet<>(comparer);
+		treeSet.add(e1);
+		treeSet.add(e2);
+		treeSet.add(e3);
+		System.out.println("======================");
+		System.out.println(treeSet.contains(e3));
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>");
+		for (Employee employee: treeSet) {
+			System.out.println("---");
+			if (comparer.compare(employee, e2) == 0) {
+				System.out.println("Found");
+				break;
+			}
+		}
+		System.out.println("----------------------");
+		System.out.println(treeSet.tailSet(e3));
+		LinkedList<Employee> linkedList = new LinkedList<>();
+		linkedList.add(e1);
+		linkedList.add(e2);
+		linkedList.add(e3);
+		for (Employee emp: linkedList.subList(1, 3)) {
+			emp.name = "LoL";
+		}
+		System.out.println(linkedList);
+//		for (int i=0; i<203631591; i++) {
+//			System.out.println(i);
+//		}
 	}
 
 	private static void checkIfHashMapValuesAreReference() {
