@@ -15,6 +15,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		T data;
 		Node<T> left;
 		Node<T> right;
+		
+		public Node(T data) {
+			this.data = data;
+		}
 
 		public Node(T data, Node<T> left, Node<T> right) {
 			this.data = data;
@@ -384,6 +388,49 @@ public class BinarySearchTree<T extends Comparable<T>> {
 			levelOrderTraversedRecursively(root.left, list, level - 1);
 			levelOrderTraversedRecursively(root.right, list, level - 1);
 		}
+	}
+
+	int minDiff, res;
+	
+	private int closest(Node<Integer> root, int k) {
+		minDiff = Integer.MAX_VALUE; // reset
+		closestHelper(root, k);
+		return res;
+	}
+
+	void closestHelper(Node<Integer> root, int k) {
+		if (root == null) return;
+		if (root.data == k) {
+			res = root.data;
+			return;
+		}
+		int newDiff = Math.abs(root.data - k);
+		if (newDiff < minDiff) {
+			minDiff = newDiff;
+			res = root.data;
+		}
+		if (k < root.data) closestHelper(root.left, k);
+		else closestHelper(root.right, k);
+	}
+
+	public static void main(String[] args) {
+		BinarySearchTree<Integer> bst = new BinarySearchTree<>();
+		Node<Integer> root = new Node<>(9);
+		root.left = new Node<>(4);
+		root.right = new Node<>(17);
+		
+		root.left.left = new Node<>(3);
+		root.left.right = new Node<>(6);
+		
+		root.left.right.left = new Node<>(5);
+		root.left.right.right = new Node<>(7);
+		
+		root.right.right = new Node<>(22);
+		root.right.right.left = new Node<>(20);
+		System.out.println("Closest Element for 4: " + bst.closest(root, 4));
+		System.out.println("Closest Element for 18: " + bst.closest(root, 18));
+		System.out.println("Closest Element for 12: " + bst.closest(root, 12));
+		System.out.println("Closest Element for 2: " + bst.closest(root, 2));
 	}
 
 }
