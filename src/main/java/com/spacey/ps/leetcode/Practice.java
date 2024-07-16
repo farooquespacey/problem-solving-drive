@@ -1,6 +1,5 @@
 package com.spacey.ps.leetcode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,117 +34,6 @@ public class Practice {
         System.out.println("014. Product of Array except Self");
         nums = new int[] {1,2,3,4};
         System.out.println(asList(productOfArrayExceptSelfOptimized_014(nums)));
-
-        System.out.println("021. Zig Zag Conversion");
-        System.out.println(zigZagConversion_021("PAYPALISHIRING", 4));
-
-        System.out.println("042. Linked list cycle");
-        Node<Integer> linkedList = new Node<>(3, new Node<>(2, new Node<>(0, new Node<>(-4))));
-        linkedList.next.next.next.next = linkedList; // cyclic
-        System.out.println(linkedListCycle(linkedList));
-
-        System.out.println("043. Add Two numbers");
-        Node<Integer> linkedList1 = new Node<>(9, new Node<>(9, new Node<>(9)));
-        Node<Integer> linkedList2 = new Node<>(9, new Node<>(9, new Node<>(9)));
-        System.out.println(addTwoNumbers_043(linkedList1, linkedList2));
-
-        System.out.println("044. Merge Two sorted lists");
-        linkedList1 = new Node<>(1, new Node<>(2, new Node<>(5)));
-        linkedList2 = new Node<>(1, new Node<>(3, new Node<>(4)));
-        System.out.println(mergeTwoSortedLists_044(linkedList1, linkedList2));
-    }
-
-    private static Node<Integer> mergeTwoSortedLists_044(Node<Integer> l1, Node<Integer> l2) {
-        Node<Integer> dummyHead = new Node<>(-1);
-        Node<Integer> tail = dummyHead;
-        while (l1 != null && l2 != null) {
-            if (l1.data <= l2.data) {
-                tail.next = l1;
-                l1 = l1.next;
-            } else {
-                tail.next = l2;
-                l2 = l2.next;
-            }
-            tail = tail.next;
-        }
-        tail.next = (l1 != null) ? l1 : l2;
-        return dummyHead.next;
-    }
-
-    private static Node<Integer> addTwoNumbers_043(Node<Integer> l1, Node<Integer> l2) {
-        int carry = 0;
-        Node<Integer> dummyHead = new Node<>(-1);
-        Node<Integer> tail = dummyHead;
-        while (l1 != null || l2 != null || carry != 0) {
-            int a = (l1 != null) ? l1.data : 0;
-            int b = (l2 != null) ? l2.data : 0;
-            int sum = a + b + carry;
-            int digit = sum % 10;
-            carry = sum / 10;
-            tail.next = new Node<>(digit);
-            tail = tail.next;
-
-            if (l1 != null) l1 = l1.next;
-            if (l2 != null) l2 = l2.next;
-        }
-        Node<Integer> result = dummyHead.next;
-        dummyHead.next = null; // good practice
-        return result;
-    }
-
-    private static boolean linkedListCycle(Node<Integer> head) {
-        Node<Integer> slow = head, fast = head;
-        while(fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) return true;
-        }
-        return false;
-    }
-
-    static class Node<T> {
-        T data;
-        Node<T> next;
-
-        Node(T data) {
-            this.data = data;
-        }
-
-        Node(T data, Node<T> next) {
-            this.data = data;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            List<T> o = new ArrayList<>();
-            Node<T> l = this;
-            while (l != null) {
-                o.add(l.data);
-                l = l.next;
-            }
-            return "" + o;
-        }
-    }
-
-    private static String zigZagConversion_021(String inp, int numRows) {
-        List<Character>[] rows = new ArrayList[numRows];
-        for (int i=0; i<numRows; i++)
-            rows[i] = new ArrayList<>();
-        int idx = 0, dir = 1;
-        for (char c: inp.toCharArray()) {
-            rows[idx].add(c);
-            if (idx == 0) dir = 1;
-            else if (idx == numRows-1) dir = -1;
-            idx += dir;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (List<Character> lOfC: rows) {
-            for (Character c: lOfC) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
     }
 
     // Instead of auxiliary space (excluding the final ans) of O(n), this will use O(1)
