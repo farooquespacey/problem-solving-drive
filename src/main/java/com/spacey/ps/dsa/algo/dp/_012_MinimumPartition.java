@@ -34,9 +34,9 @@ public class _012_MinimumPartition {
 		for (int i = 0; i < arr.length; i++)
 			total += arr[i];
 		return findMinPartDiff(arr, total / 2) + (total % 2 == 0 ? 0 : 1);
+//		return findMinPartDiff2(arr, total / 2, 0) + (total % 2 == 0 ? 0 : 1);
 	}
-
-
+	
 	private static int findMinPartDiff(int[] arr, int sumToMatch) {
 		if (sumToMatch <= 0)
 			// multiply by 2 because the sum is broken into half initially 
@@ -49,10 +49,22 @@ public class _012_MinimumPartition {
 		return min;
 	}
 
+	// Strategy 2: Pick and Don't Pick
+	private static int findMinPartDiff2(int[] arr, int sumToMatch, int i) {
+		if (sumToMatch <= 0 || i == arr.length)
+			// multiply by 2 because the sum is broken into half initially 
+			return Math.abs(sumToMatch) * 2;
+		int min = sumToMatch * 2;
+		int withCurr = findMinPartDiff2(arr, sumToMatch - arr[i], i+1);
+		int withoutCurr = findMinPartDiff2(arr, sumToMatch, i+1);
+		min = Math.min(min, Math.min(withCurr, withoutCurr));
+		return min;
+	}
+
 	public static void main(String[] args) {
 //		int arr[] = { 3, 1, 4, 2, 2, 1 };
 //		int arr[] = { 1, 2, 3 };
-		int arr[] = {2,3,11,5};
+		int arr[] = { 2, 3, 11, 5 };
 		System.out.print("The minimum difference between two sets is " + findMin(arr));
 	}
 

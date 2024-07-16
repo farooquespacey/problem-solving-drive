@@ -1,8 +1,6 @@
 package com.spacey.ps.leetcode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Practice {
 
@@ -53,6 +51,35 @@ public class Practice {
         linkedList1 = new Node<>(1, new Node<>(2, new Node<>(5)));
         linkedList2 = new Node<>(1, new Node<>(3, new Node<>(4)));
         System.out.println(mergeTwoSortedLists_044(linkedList1, linkedList2));
+
+        // TODO: more of linked list problems
+        
+        System.out.println("054. Kth Largest Element in an Array");
+        nums = new int[] {3,2,1,5,60,4};
+        System.out.println(kthLargestElemInArray_054(nums, 2));
+        System.out.println(kthSmallestElemInArray_054(nums, 2));
+    }
+
+    private static int kthSmallestElemInArray_054(int[] nums, int k) {
+        PriorityQueue<Integer> pQ = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int num : nums) {
+            pQ.add(num);
+            if (pQ.size() > k) {
+                pQ.poll();
+            }
+        }
+        return pQ.peek();
+    }
+
+    private static int kthLargestElemInArray_054(int[] nums, int k) {
+        PriorityQueue<Integer> pQ = new PriorityQueue<>();
+        for (int i=0; i<nums.length; i++)  {
+            pQ.add(nums[i]);
+            if (pQ.size() > k) {
+                pQ.poll();
+            }
+        }
+        return pQ.peek();
     }
 
     private static Node<Integer> mergeTwoSortedLists_044(Node<Integer> l1, Node<Integer> l2) {
