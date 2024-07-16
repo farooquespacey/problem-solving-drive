@@ -58,9 +58,134 @@ public class Practice {
         nums = new int[] {3,2,1,5,60,4};
         System.out.println(kthLargestElemInArray_054(nums, 2));
         System.out.println(kthSmallestElemInArray_054(nums, 2));
+
+        System.out.println("072. Maximum depth of a Binary Tree");
+        Integer[] tree = new Integer[] {3, 9, 20, null, null, 15, 7};
+        System.out.println(maxDepthOfBinaryTree_072(buildTree(tree)));
+
+        System.out.println("073. Same Tree?");
+        Integer[] tree1 = new Integer[] {1, 2, 3};
+        Integer[] tree2 = new Integer[] {1, 2, 3};
+        System.out.println(isSameTree_073(buildTree(tree1), buildTree(tree2)));
+
+        System.out.println("074. Invert Binary Tree");
+        tree = new Integer[] {2, 1, 3};
+        printTree(invertBinaryTree_074(buildTree(tree)));
+        System.out.println();
+
+        System.out.println("075. Symmetric Tree");
+        tree = new Integer[] {1, 2, 2, 3, 4, 4, 3};
+        System.out.println(symmetricTree_075(buildTree(tree)));
+
+        System.out.println("077. Path Sum");
+        tree = new Integer[] {5, 4, 8, 11, null, 13, 4, 7, 2, null, null, null, 1};
+        System.out.println(pathSum_077(buildTree(tree), 22));
+
+        System.out.println("078. Sum Root to Leaf numbers");
+        tree = new Integer[] {4, 9, 0, 5, 1};
+        System.out.println(sumRootToLeafNumbers_078(buildTree(tree)));
     }
 
-    private static int kthSmallestElemInArray_054(int[] nums, int k) {
+    private static int sumRootToLeafNumbers_078(TreeNode<Integer> root) {
+        return sumRootToLeafNumbersHelper_078(root, 0);
+    }
+    
+    private static int sumRootToLeafNumbersHelper_078(TreeNode<Integer> root, int sum) {
+        if (root == null) return 0;
+        sum = (sum * 10) + root.data;
+        if (root.left == null && root.right == null) return sum;
+        return sumRootToLeafNumbersHelper_078(root.left, sum) + sumRootToLeafNumbersHelper_078(root.right, sum);
+    } 
+
+    private static boolean pathSum_077(TreeNode<Integer> root, int targetSum) {
+        if (root == null || root.data == null) return false;
+        if (root.data == targetSum && root.left == null && root.right == null) return true;
+        return pathSum_077(root.left, targetSum - root.data) || 
+                pathSum_077(root.right, targetSum - root.data);
+    }
+
+    private static boolean symmetricTree_075(TreeNode<Integer> tree) {
+        if (tree == null) return true;
+        return isMirrorTree_075(tree.left, tree.right);
+    }
+
+    private static boolean isMirrorTree_075(TreeNode<Integer> left, TreeNode<Integer> right) {
+        if (left == null & right == null) return true;
+        if (left != null && right != null && Objects.equals(left.data, right.data)) {
+            return isMirrorTree_075(left.left, right.right) && isMirrorTree_075(left.right, right.left);
+        }
+        return false;
+    }
+    
+    private static TreeNode<Integer> invertBinaryTree_074(TreeNode<Integer> tree) {
+        if (tree == null) return null;
+        TreeNode<Integer> tmp = invertBinaryTree_074(tree.left);
+        tree.left = invertBinaryTree_074(tree.right);
+        tree.right = tmp;
+        return tree;
+    }
+
+    private static boolean isSameTree_073(TreeNode<Integer> tree1, TreeNode<Integer> tree2) {
+        if (tree1 == null && tree2 == null) return true;
+        if (tree1 != null && tree2 != null && Objects.equals(tree1.data, tree2.data))
+            return isSameTree_073(tree1.left, tree2.left) && isSameTree_073(tree1.right, tree2.right);
+        return false;
+    }
+
+    private static int maxDepthOfBinaryTree_072(TreeNode<Integer> tree) {
+        if (tree == null) return 0;
+        int lH, rH;
+        lH = 1 + maxDepthOfBinaryTree_072(tree.left);
+        rH = 1 + maxDepthOfBinaryTree_072(tree.right);
+        return Math.max(lH, rH);
+    }
+
+
+    private static <T> void printTree(TreeNode<T> root) {
+        if (root == null) {
+            return;
+        }
+        printTree(root.left);
+        System.out.print(root.data + " ");
+        printTree(root.right);
+    }
+
+    private static <T> TreeNode<T> buildTree(T[] tree) {
+        if (tree.length == 0) return null;
+        TreeNode<T> root = new TreeNode<T>(tree[0]);
+        Queue<TreeNode<T>> q = new LinkedList<>();
+        q.add(root);
+        for (int i = 1; i < tree.length; i++) {
+            TreeNode<T> node = q.peek();
+            if (node.left == null) {
+                node.left = new TreeNode<>(tree[i]);
+                if (tree[i] != null) q.add(node.left);
+            } else if (node.right == null) {
+                node.right = new TreeNode<>(tree[i]);
+                if (tree[i] != null) q.add(node.right);
+                q.remove();
+            }
+        }
+        return root;
+    }
+    
+    static class TreeNode<T> {
+        T data;
+        TreeNode<T> left;
+        TreeNode<T> right;
+
+        TreeNode(T data) {
+            this.data = data;
+        }
+
+        TreeNode(T data, TreeNode<T> left, TreeNode<T> right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+        private static int kthSmallestElemInArray_054(int[] nums, int k) {
         PriorityQueue<Integer> pQ = new PriorityQueue<>(Comparator.reverseOrder());
         for (int num : nums) {
             pQ.add(num);
